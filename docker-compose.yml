@@ -1,0 +1,17 @@
+version: '3' # composeファイルのバーション指定
+services:
+  app: # service名
+    build: . # ビルドに使用するDockerfileがあるディレクトリ指定
+    tty: true # コンテナの起動永続化
+    volumes:
+      - .:/go/src/youtub-board-do # マウントディレクトリ指定
+  mysql:
+    container_name: mysql_container
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_USER=mock_api
+      - MYSQL_PASSWORD=mock_api
+      - MYSQL_DATABASE=mock_api

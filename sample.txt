@@ -1,0 +1,5431 @@
+﻿---------------------------------
+Go言語ハンズオン
+掲載リスト
+---------------------------------
+■1章
+---------------------------------
+
+
+
+▼リスト1-1
+package main
+
+import (
+        "fmt"
+)
+
+func main() {
+        fmt.Println("Hello, playground")
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト1-2
+package main
+
+import (
+        "fmt"
+)
+
+func main() {
+        fmt.Println("Hello, Go-lang!")
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト1-3
+func main() {
+        fmt.Println(123 * 45)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト1-4
+func main() {
+        fmt.Print("123 * 45 = ")
+        fmt.Println(123 * 45)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト1-5
+package main
+
+import (
+        "bufio"
+        "fmt"
+        "os"
+)
+
+func main() {
+        name := input("type your name")
+        fmt.Println("Hello, " + name + "!!")
+}
+
+func input(msg string) string {
+        scanner := bufio.NewScanner(os.Stdin)
+        fmt.Print(msg + ": ")
+        scanner.Scan()
+        return scanner.Text()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト1-6
+package hello
+
+import (
+        "bufio"
+        "fmt"
+        "os"
+)
+
+func Input(msg string) string {
+        scanner := bufio.NewScanner(os.Stdin)
+        fmt.Print(msg + ": ")
+        scanner.Scan()
+        return scanner.Text()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト1-7
+package main
+
+import (
+        "fmt"
+        "hello"
+)
+
+func main() {
+        name := hello.Input("type your name")
+        fmt.Println("Hello, " + name + "!!")
+}
+
+
+
+---------------------------------
+■2章
+---------------------------------
+
+
+
+▼リスト2-1
+package main
+
+import ("fmt")
+
+func main() {
+        a,b,c := 100, 200, 300
+        fmt.Print("total:")
+        fmt.Println(a+b+c)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-2
+package main
+
+import (
+        "fmt"
+        "hello"
+        "strconv"
+)
+
+func main() {
+        x := hello.Input("type a price")
+        n, err := strconv.Atoi(x)
+        p := float64(n)
+        fmt.Println(int(p * 1.1))
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-3
+func main() {
+        x := hello.Input("type a price")
+        n, err := strconv.Atoi(x)
+        if err != nil {
+                fmt.Println("ERROR!!")
+                return
+        }
+        p := float64(n)
+        fmt.Println(int(p * 1.1))
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-4
+func main() {
+        x := hello.Input("type a number")
+        n, err := strconv.Atoi(x)
+        if err != nil {
+                fmt.Println("ERROR!!")
+                return
+        }
+        fmt.Print(x + "は、")
+        if n%2 == 0 {
+                fmt.Println("偶数です。")
+        } else {
+                fmt.Println("奇数です。")
+        }
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-5
+func main() {
+        x := hello.Input("type a number")
+        fmt.Print(x + "は、")
+        if n, err := strconv.Atoi(x); err == nil {
+                if n%2 == 0 {
+                        fmt.Println("偶数です。")
+                } else {
+                        fmt.Println("奇数です。")
+                }
+        } else {
+                fmt.Println("整数ではありません。")
+        }
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-6
+func main() {
+        x := hello.Input("type a number")
+        fmt.Print(x + "月は、")
+        switch n, err := strconv.Atoi(x); n {
+        case 0:
+                fmt.Println("整数値が得られません。")
+                fmt.Println(err)
+        case 1, 2, 12:
+                fmt.Println("冬です。")
+        case 3, 4, 5:
+                fmt.Println("春です。")
+        case 6, 7, 8:
+                fmt.Println("夏です。")
+        case 9, 10, 11:
+                fmt.Println("冬です。")
+        default:
+                fmt.Println("月の値ではありませんよ？")
+        }
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-7
+func main() {
+        x := 5 //☆
+        switch x {
+        case f(1):
+                fmt.Println("* first case. *")
+        case f(2):
+                fmt.Println("* second case. *")
+        case f(3):
+                fmt.Println("* third case. *")
+        default:
+                fmt.Println("* default case. *")
+        }
+}
+
+func f(n int) int {
+        fmt.Println("No,", n)
+        return n
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-8
+func main() {
+        x := hello.Input("type a number")
+        n, err := strconv.Atoi(x)
+        if err == nil {
+                fmt.Print(x + "は、")
+        } else {
+                return
+        }
+        switch {
+        case n%2 == 0:
+                fmt.Println("偶数です。")
+        case n%2 == 1:
+                fmt.Println("奇数です。")
+        }
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-9
+func main() {
+        x := hello.Input("type 1~5")
+        n, err := strconv.Atoi(x)
+        if err == nil {
+                fmt.Print(x + "までの合計は、")
+        } else {
+                return
+        }
+        t := 0
+        switch n {
+        case 5:
+                t += 5
+                fallthrough
+        case 4:
+                t += 4
+                fallthrough
+        case 3:
+                t += 3
+                fallthrough
+        case 2:
+                t += 2
+                fallthrough
+        case 1:
+                t++
+        default:
+                fmt.Println("範囲外です。")
+                return
+        }
+        fmt.Println(t, "です。")
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-10
+func main() {
+        x := hello.Input("type a number")
+        n, err := strconv.Atoi(x)
+        if err == nil {
+                fmt.Print("1から" + x + "の合計は、")
+        } else {
+                return
+        }
+        t := 0
+        c := 1
+        for c <= n {
+                t += c
+                c++
+        }
+        fmt.Println(t, "です。")
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-11
+func main() {
+        x := hello.Input("type a number")
+        n, err := strconv.Atoi(x)
+        if err == nil {
+                fmt.Print("1から" + x + "の合計は、")
+        } else {
+                return
+        }
+        t := 0
+        for i := 1; i <= n; i++ {
+                t += i
+        }
+        fmt.Println(t, "です。")
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-12
+func main() {
+        x := hello.Input("type a number")
+        n, err := strconv.Atoi(x)
+        if err == nil {
+                fmt.Print("1から" + x + "の偶数の合計は、")
+        } else {
+                return
+        }
+        t := 0
+        c := 0
+        for {
+                c++
+                if c%2 == 1 {
+                        continue
+                }
+                if c > n {
+                        break
+                }
+                t += c
+        }
+        fmt.Println(t, "です。")
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-13
+func main() {
+        t := 0
+        x := hello.Input("type a number")
+        n, err := strconv.Atoi(x)
+        if err != nil {
+                goto err
+        }
+        for i := 1; i <= n; i++ {
+                t += i
+        }
+        fmt.Println("total:", t)
+        return
+
+err:
+        fmt.Println("ERROR!")
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-14
+// "strings" をimport
+
+func main() {
+        x := hello.Input("input data")
+        ar := strings.Split(x, " ")
+        t := 0
+        for i := 0; i < len(ar); i++ {
+                n, er := strconv.Atoi(ar[i])
+                if er != nil {
+                        goto err
+                }
+                t += n
+        }
+        fmt.Println("total:", t)
+        return
+
+err:
+        fmt.Println("ERROR!")
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-15
+func main() {
+        x := hello.Input("input data")
+        ar := strings.Split(x, " ")
+        t := 0
+        for _, v := range ar {
+                n, er := strconv.Atoi(v)
+                if er != nil {
+                        goto err
+                }
+                t += n
+        }
+        fmt.Println("total:", t)
+        return
+
+err:
+        fmt.Println("ERROR!")
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-16
+func main() {
+        a := [5]int{10, 20, 30, 40, 50}
+        b := a[0:3]
+        fmt.Println(a)
+        fmt.Println(b)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-17
+func main() {
+        a := [5]int{10, 20, 30, 40, 50}
+        b := a[0:3]
+        fmt.Println(a)
+        fmt.Println(b)
+        a[0] = 100
+        fmt.Println(a)
+        fmt.Println(b)
+        b[1] = 200
+        fmt.Println(a)
+        fmt.Println(b)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-18
+func main() {
+        a := [3]int{10, 20, 30}
+        b := a[0:2]
+        fmt.Println(a)
+        fmt.Println(b)
+        b = append(b, 1000)
+        fmt.Println(a)
+        fmt.Println(b)
+        b = append(b, 1000)
+        fmt.Println(a)
+        fmt.Println(b)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-19
+func main() {
+        a := []int{10, 20, 30}
+        fmt.Println(a)
+        a = push(a, 1000)
+        fmt.Println(a)
+        a = pop(a)
+        fmt.Println(a)
+        a = unshift(a, 1000)
+        fmt.Println(a)
+        a = shift(a)
+        fmt.Println(a)
+        a = insert(a, 1000, 2)
+        fmt.Println(a)
+        a = remove(a, 2)
+        fmt.Println(a)
+}
+
+func push(a []int, v int) []int {
+        return append(a, v)
+}
+
+func pop(a []int) []int {
+        return a[:len(a)-1]
+}
+
+func unshift(a []int, v int) []int {
+        return append([]int{v}, a...)
+}
+func shift(a []int) []int {
+        return a[1:]
+}
+
+func insert(a []int, v int, p int) []int {
+        a = append(a, 0)
+        a = append(a[:p+1], a[p:len(a)-1]...)
+        a[p] = v
+        return a
+}
+
+func remove(a []int, p int) []int {
+        return append(a[:p], a[p+1:]...)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-20
+func main() {
+        m := map[string]int{
+                "a": 100,
+                "b": 200,
+                "c": 300,
+        }
+        m["total"] = m["a"] + m["b"] + m["c"]
+        fmt.Println(m)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-21
+func main() {
+        m := map[string]int{
+                "a": 100,
+                "b": 200,
+                "c": 300,
+        }
+        for k, v := range m {
+                fmt.Println(k + ":", v)
+        }
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-22
+func push(a []int, v int) []int {
+        return append(a, v)
+}
+
+func pop(a []int) []int {
+        return a[:len(a)-1]
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-23
+a := []int{10, 20, 30}
+fmt.Println(a)
+a = push(a, 1000)
+fmt.Println(a)
+a = pop(a)
+fmt.Println(a)
+
+
+
+---------------------------------
+
+
+
+▼リスト2-24
+func main() {
+        m := []string{}
+        m, _ = push(m, "apple")
+        m, _ = push(m, "banana")
+        m, _ = push(m, "orange")
+        fmt.Println(m)
+        m, v := pop(m)
+        fmt.Println("get " + v + " ->", m)
+}
+
+func push(a []string, v string) ([]string, int) {
+        return append(a, v), len(a)
+}
+
+func pop(a []string) ([]string, string) {
+        return a[:len(a)-1], a[len(a)-1]
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-25
+func main() {
+        m := []string{
+                "one", "two", "three",
+        }
+        fmt.Println(m)
+        m = insert(m, "*", 2)
+        m = insert(m, "*", 1)
+        fmt.Println(m)
+}
+
+func insert(a []string, v string, p int) (s []string) {
+        s = append(a, "")
+        s = append(s[:p+1], s[p:len(s)-1]...)
+        s[p] = v
+        return
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-26
+func main() {
+        m := []string{
+                "one", "two", "three",
+        }
+        fmt.Println(m)
+        m = push(m, "1", "2", "3")
+        fmt.Println(m)
+}
+
+func push(a []string, v ...string) (s []string) {
+        s = append(a, v...)
+        return
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-27
+func main() {
+        f := func(a []string) ([]string, string) {
+                return a[1:], a[0]
+        }
+        m := []string{
+                "one",
+                "two",
+                "three",
+        }
+        s := ""
+        fmt.Println(m)
+        for len(m) > 0 {
+                m, s = f(m)
+                fmt.Println(s + " ->", m)
+        }
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-28
+func main() {
+        modify := func(a []string, f func([]string) []string) []string {
+                return f(a)
+        }
+
+        m := []string{
+                "1st", "2nd", "3rd",
+        }
+        fmt.Println(m)
+
+        m1 := modify(m, func([]string) []string {
+                return append(m, m...)
+        })
+        fmt.Println(m1)
+
+        m2 := modify(m, func([]string) []string {
+                return m[:len(m)-1]
+        })
+        fmt.Println(m2)
+
+        m3 := modify(m, func([]string) []string {
+                return m[1:]
+        })
+        fmt.Println(m3)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-29
+func main() {
+        data := "*新しい値*"
+        m1 := modify(data)
+        data = "+new data+"
+        m2 := modify(data)
+
+        fmt.Println(m1())
+        fmt.Println(m2())
+}
+
+func modify(d string) func() []string {
+        m := []string{
+                "1st", "2nd",
+        }
+        return func() []string {
+                return append(m, d)
+        }
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト2-30
+func main() {
+        n := 123
+        b := true
+        s := "hello"
+        fmt.Printf("number:%d, bool:%t, string:%s.", n, b, s)
+}
+
+
+
+---------------------------------
+■3章
+---------------------------------
+
+
+
+▼リスト3-1
+func main() {
+        n := 123
+        p := &n
+        fmt.Println("number:", n)
+        fmt.Println("pointer:", p)
+        fmt.Println("value:", *p)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-2
+func main() {
+        n := 123
+        p := &n
+        m := 10000
+        p2 := &m
+        fmt.Printf("p  value:%d, address:%p\n", *p, p)
+        fmt.Printf("p2 value:%d, address:%p\n", *p2, p2)
+        pb := p
+        p = p2
+        p2 = pb
+        fmt.Printf("p  value:%d, address:%p\n", *p, p)
+        fmt.Printf("p2 value:%d, address:%p\n", *p2, p2)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-3
+func main() {
+        n := 123
+        p := &n
+        q := &p
+        m := 10000
+        p2 := &m
+        q2 := &p2
+        fmt.Printf("q  value:%d, address:%p\n", **q, *q)
+        fmt.Printf("q2 value:%d, address:%p\n", **q2, *q2)
+        pb := p
+        p = p2
+        p2 = pb
+        fmt.Printf("q  value:%d, address:%p\n", **q, *q)
+        fmt.Printf("q2 value:%d, address:%p\n", **q2, *q2)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-4
+func main() {
+        n := 123
+        fmt.Printf("value:%d.\n", n)
+        change1(n)
+        fmt.Printf("value:%d.\n", n)
+        change2(&n)
+        fmt.Printf("value:%d.\n", n)
+}
+
+func change1(n int) {
+        n *= 2
+}
+func change2(n *int) {
+        *n *= 2
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-5
+func main() {
+        ar := []int{10, 20, 30}
+        fmt.Println(ar)
+        initial(&ar)
+        fmt.Println(ar)
+}
+
+func initial(ar *[]int) {
+        for i := 0; i < len(*ar); i++ {
+                (*ar)[i] = 0
+        }
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-6
+var mydata struct {
+        Name string
+        Data []int
+}
+
+func main() {
+        mydata.Name = "Taro"
+        mydata.Data = []int{10, 20, 30}
+        fmt.Println(mydata)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-7
+// Mydata is structure.
+type Mydata struct {
+        Name string
+        Data []int
+}
+
+func main() {
+        taro := Mydata{"Taro", []int{10, 20, 30},}
+        hanako := Mydata{
+                Name: "Hanako",
+                Data: []int{90, 80, 70},
+        }
+        fmt.Println(taro)
+        fmt.Println(hanako)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-8
+// Mydata is structure.
+type Mydata struct {
+        Name string
+        Data []int
+}
+
+func main() {
+        taro := Mydata{
+                "Taro",
+                []int{10, 20, 30},
+        }
+        fmt.Println(taro)
+        taro = rev(taro)
+        fmt.Println(taro)
+}
+
+func rev(md Mydata) Mydata {
+        od := md.Data
+        nd := []int{}
+        for i := len(od) - 1; i >= 0; i-- {
+                nd = append(nd, od[i])
+        }
+        md.Data = nd
+        return md
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-9
+// Mydata は略
+func main() {
+        taro := Mydata{
+                "Taro",
+                []int{10, 20, 30},
+        }
+        fmt.Println(taro)
+        rev(&taro)
+        fmt.Println(taro)
+}
+
+func rev(md *Mydata) {
+        od := (*md).Data
+        nd := []int{}
+        for i := len(od) - 1; i >= 0; i-- {
+                nd = append(nd, od[i])
+        }
+        md.Data = nd
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-10
+func main() {
+        taro := new(Mydata)
+        fmt.Println(taro)
+        taro.Name = "Taro"
+        taro.Data = make([]int, 5, 5)
+        fmt.Println(taro)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-11
+// Mydata is structure.
+type Mydata struct {
+        Name string
+        Data []int
+}
+
+// PrintData is println all data.
+func (md Mydata) PrintData() {
+        fmt.Println("*** Mydata ***")
+        fmt.Println("Name: ", md.Name)
+        fmt.Println("Data: ", md.Data)
+        fmt.Println("*** end ***")
+}
+
+func main() {
+        taro := Mydata{
+                "Hanako", []int{98, 76, 54, 32, 10},
+        }
+        taro.PrintData()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-12
+// "hello"と"strconv"をimportする
+
+type intp int
+
+func (num intp) IsPrime() bool {
+        n := int(num)
+        for i := 2; i <= (n / 2); i++ {
+                if n%i == 0 {
+                        return false
+                }
+        }
+        return true
+}
+
+func (num intp) PrimeFactor() []int {
+        ar := []int{}
+        x := int(num)
+        n := 2
+        for x > n {
+                if x%n == 0 {
+                        x /= n
+                        ar = append(ar, n)
+                } else {
+                        if n == 2 {
+                                n++
+                        } else {
+                                n += 2
+                        }
+                }
+        }
+        ar = append(ar, x)
+        return ar
+}
+
+func main() {
+        s := hello.Input("type a number")
+        n, _ := strconv.Atoi(s)
+        x := intp(n)
+        fmt.Printf("%d [%t].\n", x, x.IsPrime())
+        fmt.Println(x.PrimeFactor())
+        x *= 2
+        x++
+        fmt.Printf("%d [%t].\n", x, x.IsPrime())
+        fmt.Println(x.PrimeFactor())
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-13
+type intp int
+func (num intp) IsPrime() bool {……略……}
+func (num intp) PrimeFactor() []int {……略……}
+
+func (num *intp) doPrime() {
+        pf := num.PrimeFactor()
+        *num = intp(pf[len(pf)-1])
+}
+
+func main() {
+        s := hello.Input("type a number")
+        n, _ := strconv.Atoi(s)
+        x := intp(n)
+        fmt.Printf("%d [%t].\n", x, x.IsPrime())
+        fmt.Println(x.PrimeFactor())
+        x.doPrime()
+        fmt.Printf("%d [%t].\n", x, x.IsPrime())
+        fmt.Println(x.PrimeFactor())
+        x++
+        fmt.Printf("%d [%t].\n", x, x.IsPrime())
+        fmt.Println(x.PrimeFactor())
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-14
+package main
+
+import (
+    "fmt"
+)
+
+// Data is interface.
+type Data interface {
+        Initial(name string, data []int)
+        PrintData()
+}
+
+// Mydata is Struct.
+type Mydata struct {
+        Name string
+        Data []int
+}
+
+// Initial is init method.
+func (md *Mydata) Initial(name string, data []int) {
+        md.Name = name
+        md.Data = data
+}
+
+// PrintData is println all data.
+func (md *Mydata) PrintData() {
+        fmt.Println("Name: ", md.Name)
+        fmt.Println("Data: ", md.Data)
+}
+
+func main() {
+        var ob Mydata = Mydata{}
+        ob.Initial("Sachiko", []int{55, 66, 77})
+        ob.PrintData()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-15
+func main() {
+        var ob Data = new(Mydata)
+        ob.Initial("Sachiko", []int{55, 66, 77})
+        ob.PrintData()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-16
+// Check is method.
+func (md *Mydata) Check() {
+        fmt.Printf("Check! [%s]", md.Name)
+}
+
+func main() {
+        var ob Mydata = Mydata{}
+        ob.Initial("Sachiko", []int{55, 66, 77})
+        ob.Check()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-17
+func main() {
+        var ob Data = new(Mydata)
+        ob.Initial("Sachiko", []int{55, 66, 77})
+        ob.Check()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-18
+package main
+
+import (
+    "fmt"
+    "strings"
+    "strconv"
+)
+
+// Data is interface for Mydata.
+type Data interface {
+        SetValue(vals map[string]string)
+        PrintData()
+}
+
+// Mydata is structure.
+type Mydata struct {
+        Name string
+        Data []int
+}
+
+// SetValue is Mydata method.
+func (md *Mydata) SetValue(vals map[string]string) {
+        md.Name = vals["name"]
+        valt := strings.Split(vals["data"], " ")
+        vali := []int{}
+        for _, i := range valt {
+                n, _ := strconv.Atoi(i)
+                vali = append(vali, n)
+        }
+        md.Data = vali
+}
+
+// PrintData is Mydata method.
+func (md *Mydata) PrintData() {
+        fmt.Println("Name: ", md.Name)
+        fmt.Println("Data: ", md.Data)
+}
+
+// Yourdata is structure.
+type Yourdata struct {
+        Name string
+        Mail string
+        Age  int
+}
+
+// SetValue is Yourdata method.
+func (md *Yourdata) SetValue(vals map[string]string) {
+        md.Name = vals["name"]
+        md.Mail = vals["mail"]
+        n, _ := strconv.Atoi(vals["age"])
+        md.Age = n
+}
+
+// PrintData is Yourdata method.
+func (md *Yourdata) PrintData() {
+        fmt.Printf("I'm %s. (%d).\n", md.Name, md.Age)
+        fmt.Printf("mail: %s.\n", md.Mail)
+}
+
+func main() {
+        ob := [2]Data{}
+        ob[0] = new(Mydata)
+        ob[0].SetValue(map[string]string{
+                "name": "Sachiko",
+                "data": "55, 66, 77",
+        })
+        ob[1] = new(Yourdata)
+        ob[1].SetValue(map[string]string{
+                "name": "Mami",
+                "mail": "mami@mume.mo",
+                "age":  "34",
+        })
+        for _, d := range ob {
+                d.PrintData()
+                fmt.Println()
+        }
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-19
+// PrintData is println all data.
+func (md *Mydata) PrintData() {
+        if md != nil {
+                fmt.Println("Name: ", md.Name)
+                fmt.Println("Data: ", md.Data)
+        } else {
+                fmt.Println("**This is Nil value.**")
+        }
+}
+
+func main() {
+        var ob *Mydata
+        ob.PrintData()
+        ob = &Mydata{}
+        ob.SetValue(map[string]string{
+                "name": "Jiro",
+                "data": "123 456 789",
+        })
+        ob.PrintData()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-20
+package main
+
+import (
+    "fmt"
+)
+
+// General is all type data.
+type General interface{}
+
+// GData is holding General value.
+type GData interface {
+        Set(nm string, g General)
+        Print()
+}
+
+// GDataImpl is structure.
+type GDataImpl struct {
+        Name string
+        Data General
+}
+
+// Set is GDataImpl method.
+func (gd *GDataImpl) Set(nm string, g General) {
+        gd.Name = nm
+        gd.Data = g
+}
+
+// Print is GDataImpl method.
+func (gd *GDataImpl) Print() {
+        fmt.Printf("<<%s>> ", gd.Name)
+        fmt.Println(gd.Data)
+}
+
+func main() {
+        var data = []GDataImpl{}
+        data = append(data, GDataImpl{"Taro", 123})
+        data = append(data, GDataImpl{"Hanako", "hello!"})
+        data = append(data, GDataImpl{"Sachiko", []int{123, 456, 789}})
+        for _, ob := range data {
+                ob.Print()
+        }
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-21
+// General is all type data.
+type General interface{}
+
+// GData is holding General value.
+type GData interface {
+        Set(nm string, g General) GData
+        Print()
+}
+
+// NData is structure.
+type NData struct {
+        Name string
+        Data int
+}
+
+// Set is NData method.
+func (nd *NData) Set(nm string, g General) GData {
+        nd.Name = nm
+        nd.Data = g.(int)
+        return nd
+}
+
+// Print is NData method.
+func (nd *NData) Print() {
+        fmt.Printf("<<%s>> value: %d\n", nd.Name, nd.Data)
+}
+
+// SData is structure.
+type SData struct {
+        Name string
+        Data string
+}
+
+// Set is SData method.
+func (sd *SData) Set(nm string, g General) GData {
+        sd.Name = nm
+        sd.Data = g.(string)
+        return sd
+}
+
+// Print is SData method.
+func (sd *SData) Print() {
+        fmt.Printf("* %s [%s] *\n", sd.Name, sd.Data)
+
+}
+
+func main() {
+        var data = []GData{}
+        data = append(data, new(NData).Set("Taro", 123))
+        data = append(data, new(SData).Set("Jiro", "hello!"))
+        data = append(data, new(NData).Set("Hanako", 98700))
+        data = append(data, new(SData).Set("Sachiko", "happy?"))
+        for _, ob := range data {
+                ob.Print()
+        }
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-22
+// "reflect"をimportに追加する
+
+// Set is NData method.
+func (nd *NData) Set(nm string, g General) GData {
+        nd.Name = nm
+        if reflect.TypeOf(g).Kind() == reflect.Int {
+                nd.Data = g.(int)
+        }
+        return nd
+}
+
+// Set is SData method.
+func (sd *SData) Set(nm string, g General) GData {
+        sd.Name = nm
+        if reflect.TypeOf(g).Kind() == reflect.String {
+                sd.Data = g.(string)
+        }
+        return sd
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-23
+func main() {
+        var data = []GData{}
+        data = append(data, new(NData).Set("Taro", 123))
+        data = append(data, new(SData).Set("Jiro", "hello!"))
+        data = append(data, new(NData).Set("Hanako", "98700"))
+        data = append(data, new(SData).Set("Sachiko", []string{"happy?"}))
+        for _, ob := range data {
+                ob.Print()
+        }
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-24
+// NData is structure.
+type NData struct {
+        Name string
+        Data []int
+}
+
+// Set is NData method.
+func (nd *NData) Set(nm string, g General) GData {
+        nd.Name = nm
+        if reflect.TypeOf(g) == reflect.SliceOf(reflect.TypeOf(0)) {
+                nd.Data = g.([]int)
+        }
+        return nd
+}
+
+// SData is structure.
+type SData struct {
+        Name string
+        Data []string
+}
+
+// Set is SData method.
+func (sd *SData) Set(nm string, g General) GData {
+        sd.Name = nm
+        if reflect.TypeOf(g) == reflect.SliceOf(reflect.TypeOf("")) {
+                sd.Data = g.([]string)
+        }
+        return sd
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-25
+func main() {
+        var data = []GData{}
+        data = append(data, new(NData).Set("Taro", []int{1, 2, 3}))
+        data = append(data, new(SData).Set("Jiro", []string{"hello", "bye"}))
+        data = append(data, new(NData).Set("Hanako", 98700))
+        data = append(data, new(SData).Set("Sachiko", "happy?"))
+        for _, ob := range data {
+                ob.Print()
+        }
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-26
+package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func hello(s string, n int) {
+        for i := 1; i <= 10; i++ {
+                fmt.Printf("<%d %s>", i, s)
+                time.Sleep(time.Duration(n) * time.Millisecond)
+        }
+}
+
+func main() {
+        go hello("hello", 50)
+        hello("bye!", 100)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-27
+// "strconv"をimportに追加
+
+func main() {
+        msg := "start"
+        prmsg := func(nm string, n int) {
+                fmt.Println(nm, msg)
+                time.Sleep(time.Duration(n) * time.Millisecond)
+        }
+        hello := func(n int) {
+                const nm string = "hello"
+                for i := 0; i < 10; i++ {
+                        msg += " h" + strconv.Itoa(i)
+                        prmsg(nm, n)
+                }
+        }
+        main := func(n int) {
+                const nm string = "*main"
+                for i := 0; i < 5; i++ {
+                        msg += " m" + strconv.Itoa(i)
+                        prmsg(nm, 100)
+                }
+        }
+        go hello(60)
+        main(100)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-28
+// importから"strconv"を削除しておく
+
+func total(n int, c chan int) {
+        t := 0
+        for i := 1; i <= n; i++ {
+                t += i
+        }
+        c <- t
+}
+
+func main() {
+        c := make(chan int)
+        go total(100, c)
+        fmt.Println("total:", <-c)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-29
+func main() {
+        c := make(chan int)
+        go total(1000, c)
+        go total(100, c)
+        go total(10, c)
+        x, y, z := <-c, <-c, <-c
+
+        fmt.Println(x, y, z)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-30
+func total(c chan int) {
+        n := <-c
+        fmt.Println("n = ", n)
+        t := 0
+        for i := 1; i <= n; i++ {
+                t += i
+        }
+        fmt.Println("total:", t)
+}
+
+func main() {
+        c := make(chan int)
+        c <- 100
+        go total(c)
+        time.Sleep(100 * time.Millisecond)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-31
+func main() {
+        c := make(chan int)
+        go total(c)
+        c <- 100
+        time.Sleep(100 * time.Millisecond)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-32
+// "strconv"をimportに追加
+
+func prmsg(n int, s string) {
+        fmt.Println(s)
+        time.Sleep(time.Duration(n) * time.Millisecond)
+}
+
+func first(n int, c chan string) {
+        const nm string = "first-"
+        for i := 0; i < 10; i++ {
+                s := nm + strconv.Itoa(i)
+                prmsg(n, s)
+                c <- s
+        }
+}
+func second(n int, c chan string) {
+        for i := 0; i < 10; i++ {
+                prmsg(n, "second:["+<-c+"]")
+        }
+}
+
+func main() {
+        c := make(chan string)
+        go first(10, c)
+        second(10, c)
+        fmt.Println()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-33
+func total(cs chan int, cr chan int) {
+        n := <-cs
+        fmt.Println("n = ", n)
+        t := 0
+        for i := 1; i <= n; i++ {
+                t += i
+        }
+        cr <- t
+}
+
+func main() {
+        cs := make(chan int)
+        cr := make(chan int)
+        go total(cs, cr)
+        cs <- 100
+        fmt.Println("total:", <-cr)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-34
+// importから"strconv"を削除しておく
+
+func count(n int, s int, c chan int) {
+        for i := 1; i <= n; i++ {
+                c <- i
+                time.Sleep(time.Duration(s) * time.Millisecond)
+        }
+
+}
+
+func main() {
+        n1, n2, n3 := 3, 5, 10
+        m1, m2, m3 := 100, 75, 50
+        c1 := make(chan int)
+        go count(n1, m1, c1)
+        c2 := make(chan int)
+        go count(n2, m2, c2)
+        c3 := make(chan int)
+        go count(n3, m3, c3)
+
+        for i := 0; i < n1+n2+n3; i++ {
+                select {
+                case re := <-c1:
+                        fmt.Println("*  first ", re)
+                case re := <-c2:
+                        fmt.Println("** second", re)
+                case re := <-c3:
+                        fmt.Println("***third ", re)
+                }
+        }
+        fmt.Println("*** finish. ***")
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト3-35
+// "sync"と"strconv"をimportに追加
+
+// SrData is structure.
+type SrData struct {
+        msg string
+        mux sync.Mutex
+}
+
+func main() {
+        sd := SrData{msg: "Start"}
+        prmsg := func(nm string, n int) {
+                fmt.Println(nm, sd.msg)
+                time.Sleep(time.Duration(n) * time.Millisecond)
+        }
+
+        main := func(n int) {
+                const nm string = "*main"
+                sd.mux.Lock() //☆
+                for i := 0; i < 5; i++ {
+                        sd.msg += " m" + strconv.Itoa(i)
+                        prmsg(nm, 100)
+                }
+                sd.mux.Unlock() //☆
+        }
+
+        hello := func(n int) {
+                const nm string = "hello"
+                sd.mux.Lock() //☆
+                for i := 0; i < 5; i++ {
+                        sd.msg += " h" + strconv.Itoa(i)
+                        prmsg(nm, n)
+                }
+                sd.mux.Unlock() //☆
+        }
+
+        go main(100)
+        go hello(50)
+        time.Sleep(5 * time.Second)
+}
+
+
+
+---------------------------------
+■4章
+---------------------------------
+
+
+
+▼リスト4-1
+package main
+
+import (
+        "fyne.io/fyne/app"
+        "fyne.io/fyne/widget"
+)
+
+func main() {
+        a := app.New()
+
+        w := a.NewWindow("Hello")
+        w.SetContent(
+                widget.NewLabel("Hello Fyne!"),
+        )
+
+        w.ShowAndRun()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト4-2
+func main() {
+        a := app.New()
+
+        w := a.NewWindow("Hello")
+        w.SetContent(
+                widget.NewVBox(
+                        widget.NewLabel("Hello Fyne!"),
+                        widget.NewLabel("This is sample application!"),
+                ),
+        )
+
+        w.ShowAndRun()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト4-3
+// "strconv"をimportに追加
+
+func main() {
+        c := 0
+        a := app.New()
+        w := a.NewWindow("Hello")
+        l := widget.NewLabel("Hello Fyne!")
+        w.SetContent(
+                widget.NewVBox(
+                        l,
+                        widget.NewButton("Click me!", func() {
+                                c++
+                                l.SetText("count: " + strconv.Itoa(c))
+                        }),
+                ),
+        )
+
+        w.ShowAndRun()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト4-4
+func main() {
+        a := app.New()
+        w := a.NewWindow("Hello")
+        l := widget.NewLabel("Hello Fyne!")
+        e := widget.NewEntry()
+        e.SetText("0")
+        w.SetContent(
+                widget.NewVBox(
+                        l, e,
+                        widget.NewButton("Click me!", func() {
+                                n, _ := strconv.Atoi(e.Text)
+                                l.SetText("Total: " + strconv.Itoa(total(n)))
+                        }),
+                ),
+        )
+        w.ShowAndRun()
+}
+
+func total(n int) int {
+        t := 0
+        for i := 1; i <= n; i++ {
+                t += i
+        }
+        return t
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト4-5
+// importから"strconv"を削除
+// importに"fyne.io/fyne/theme"を追加
+
+func main() {
+        a := app.New()
+        w := a.NewWindow("Hello")
+        l := widget.NewLabel("Hello Fyne!")
+        e := widget.NewEntry()
+        e.SetText("0")
+        w.SetContent(
+                widget.NewVBox(
+                        l, e,
+                        widget.NewButton("Click me!", nil),
+                ),
+        )
+        a.Settings().SetTheme(theme.LightTheme()) //☆
+        w.ShowAndRun()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト4-6
+// importから"fyne.io/fyne/theme"を削除
+
+func main() {
+        a := app.New()
+        w := a.NewWindow("Hello")
+        l := widget.NewLabel("Hello Fyne!")
+        c := widget.NewCheck("Check!", func(f bool) {
+                if f {
+                        l.SetText("CHECKED!!")
+                } else {
+                        l.SetText("not checked.")
+                }
+        })
+        c.SetChecked(true)
+        w.SetContent(
+                widget.NewVBox(
+                        l, c,
+                ),
+        )
+        w.ShowAndRun()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト4-7
+func main() {
+        a := app.New()
+        w := a.NewWindow("Hello")
+        l := widget.NewLabel("Hello Fyne!")
+        r := widget.NewRadio(
+                []string{"One", "Two", "Three"},
+                func(s string) {
+                        if s == "" {
+                                l.SetText("not selected.")
+                        } else {
+                                l.SetText("selected: " + s)
+                        }
+                })
+        r.SetSelected("One")
+        w.SetContent(
+                widget.NewVBox(
+                        l, r,
+                ),
+        )
+        w.ShowAndRun()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト4-8
+// importに"strconv"を追加
+
+func main() {
+        a := app.New()
+        w := a.NewWindow("Hello")
+        l := widget.NewLabel("Hello Fyne!")
+        s := widget.NewSlider(0.0, 100.)
+        b := widget.NewButton("Check", func() {
+                l.SetText("value: " + strconv.Itoa(int(s.Value)))
+        })
+        w.SetContent(
+                widget.NewVBox(
+                        l, s, b,
+                ),
+        )
+        w.ShowAndRun()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト4-9
+// importから"strconv"を削除
+
+func main() {
+        a := app.New()
+        w := a.NewWindow("Hello")
+        l := widget.NewLabel("Hello Fyne!")
+        sl := widget.NewSelect([]string{
+                "Eins", "Twei", "Drei",
+        }, func(s string) {
+                l.SetText("selected: " + s)
+        })
+        w.SetContent(
+                widget.NewVBox(
+                        l, sl,
+                ),
+        )
+        w.ShowAndRun()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト4-10
+func main() {
+        v := 0.
+        a := app.New()
+        w := a.NewWindow("Hello")
+        l := widget.NewLabel("Hello Fyne!")
+        p := widget.NewProgressBar()
+        b := widget.NewButton("Up!", func() {
+                v += 0.1
+                if v > 1.0 {
+                        v = 0.
+                }
+                p.SetValue(v)
+        })
+        w.SetContent(
+                widget.NewVBox(
+                        l, p, b,
+                ),
+        )
+        w.ShowAndRun()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト4-11
+func main() {
+        a := app.New()
+        w := a.NewWindow("Hello")
+        l := widget.NewLabel("Hello Fyne!")
+        ne := widget.NewEntry()
+        pe := widget.NewPasswordEntry()
+        w.SetContent(
+                widget.NewVBox(
+                        l,
+                        widget.NewForm(
+                                widget.NewFormItem("Name", ne),
+                                widget.NewFormItem("Pass", pe),
+                        ),
+                        widget.NewButton("OK", func() {
+                                l.SetText(ne.Text + " & " + pe.Text)
+                        }),
+                ),
+        )
+        w.ShowAndRun()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト4-12
+func main() {
+        a := app.New()
+        w := a.NewWindow("Hello")
+        l := widget.NewLabel("Hello Fyne!")
+        ck1 := widget.NewCheck("check 1", nil)
+        ck2 := widget.NewCheck("check 2", nil)
+        w.SetContent(
+                widget.NewVBox(
+                        l,
+                        widget.NewGroup("Group",
+                                ck1, ck2,
+                        ),
+                        widget.NewButton("OK", func() {
+                                re := "result: "
+                                if ck1.Checked {
+                                        re += "Check-1 "
+                                }
+                                if ck2.Checked {
+                                        re += "Check-2"
+                                }
+                                l.SetText(re)
+                        }),
+                ),
+        )
+        w.ShowAndRun()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト4-13
+func main() {
+        a := app.New()
+        w := a.NewWindow("Hello")
+        w.SetContent(
+                widget.NewVBox(
+                        widget.NewTabContainer(
+                                widget.NewTabItem("First",
+                                        widget.NewLabel("This is First tab item."),
+                                ),
+                                widget.NewTabItem("Second",
+                                        widget.NewLabel("This is Second tab item."),
+                                ),
+                        ),
+                ),
+        )
+        w.ShowAndRun()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト4-14
+// importに"fyne.io/fyne"と"fyne.io/fyne/layout"を追加
+
+func main() {
+        a := app.New()
+        w := a.NewWindow("Hello")
+        bt := widget.NewButton("Top", nil)
+        bb := widget.NewButton("Bottom", nil)
+        bl := widget.NewButton("Left", nil)
+        br := widget.NewButton("Right", nil)
+        w.SetContent(
+                fyne.NewContainerWithLayout(
+                        layout.NewBorderLayout(
+                                bt, bb, bl, br,
+                        ),
+                        bt, bb, bl, br,
+                        widget.NewLabel("Center."),
+                ),
+        )
+        w.ShowAndRun()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト4-15
+func main() {
+        a := app.New()
+        w := a.NewWindow("Hello")
+        w.SetContent(
+                fyne.NewContainerWithLayout(
+                        layout.NewGridLayout(3),
+                        widget.NewButton("One", nil),
+                        widget.NewButton("Two", nil),
+                        widget.NewButton("Three", nil),
+                        widget.NewButton("Four", nil),
+                        layout.NewSpacer(),
+                        widget.NewButton("Five", nil),
+                        widget.NewButton("Six", nil),
+                        layout.NewSpacer(),
+                        widget.NewButton("Seven", nil),
+                        widget.NewButton("Eight", nil),
+                        widget.NewButton("Nine", nil),
+                        widget.NewButton("Ten", nil),
+                ),
+        )
+        w.ShowAndRun()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト4-16
+// importから"fyne.io/fyne"と"fyne.io/fyne/layout"を削除
+
+func main() {
+        a := app.New()
+        w := a.NewWindow("Hello")
+        w.SetContent(
+                widget.NewScrollContainer(
+                        widget.NewVBox(
+                                widget.NewButton("One", nil),
+                                widget.NewButton("Two", nil),
+                                widget.NewButton("Three", nil),
+                                widget.NewButton("Four", nil),
+                                widget.NewButton("Five", nil),
+                                widget.NewButton("Six", nil),
+                                widget.NewButton("Seven", nil),
+                                widget.NewButton("Eight", nil),
+                                widget.NewButton("Nine", nil),
+                                widget.NewButton("Ten", nil),
+                        ),
+                ),
+        )
+        w.ShowAndRun()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト4-17
+// importに"fyne.io/fyne"と"fyne.io/fyne/theme"を追加
+
+func main() {
+        a := app.New()
+        w := a.NewWindow("Hello")
+        w.SetContent(
+                ……略……
+        )
+        a.Settings().SetTheme(theme.LightTheme()) //☆
+        w.Resize(fyne.NewSize(200, 200)) //☆
+        w.ShowAndRun()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト4-18
+// importに"fyne.io/fyne/layout" を追加
+
+func main() {
+        a := app.New()
+        w := a.NewWindow("Hello")
+        l := widget.NewLabel("This is Sample widget.")
+        tb := widget.NewToolbar(
+                widget.NewToolbarAction(theme.HomeIcon(), func() {
+                        l.SetText("Select Home Icon!")
+                }),
+                widget.NewToolbarAction(theme.InfoIcon(), func() {
+                        l.SetText("Select Infomation Icon!")
+                }),
+        )
+        w.SetContent(
+                fyne.NewContainerWithLayout(
+                        layout.NewBorderLayout(
+                                nil, tb, nil, nil,
+                        ),
+                        l,
+                        tb,
+                ),
+        )
+        w.Resize(fyne.NewSize(300, 200))
+        w.ShowAndRun()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト4-19
+// importから"fyne.io/fyne/theme"と"fyne.io/fyne/layout"を削除
+
+func main() {
+        a := app.New()
+        w := a.NewWindow("Hello")
+        l := widget.NewLabel("Hello Fyne!")
+
+        mm := fyne.NewMainMenu(
+                fyne.NewMenu("File",
+                        fyne.NewMenuItem("New", func() {
+                                l.SetText("select 'New' menu item.")
+                        }),
+                        fyne.NewMenuItem("Quit", func() {
+                                a.Quit()
+                        }),
+                ),
+        )
+        w.SetMainMenu(mm)
+        w.SetContent(
+                widget.NewVBox(
+                        l,
+                        widget.NewButton("ok", nil),
+                ),
+        )
+        w.Resize(fyne.NewSize(300, 200))
+        w.ShowAndRun()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト4-20
+// importに以下の３文を追加
+// "fyne.io/fyne/dialog", "fyne.io/fyne/layout", "fyne.io/fyne/theme"
+func main() {
+        a := app.New()
+        w := a.NewWindow("Hello")
+        l := widget.NewLabel("Hello Fyne!")
+        b := widget.NewButton("Click", func() {
+                dialog.ShowInformation("Alert",
+                        "This is sample alert!", w)
+        })
+        w.SetContent(
+                fyne.NewContainerWithLayout(
+                        layout.NewBorderLayout(
+                                nil, b, nil, nil,
+                        ),
+                        l, b,
+                ),
+        )
+        a.Settings().SetTheme(theme.LightTheme()) //☆
+        w.Resize(fyne.NewSize(350, 250))
+        w.ShowAndRun()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト4-21
+b := widget.NewButton("Click", func() {
+        dialog.ShowConfirm("Alert",
+                "Please check 'YES'!",
+                func(f bool) {
+                        if f {
+                                l.SetText("OK, thank you!!")
+                        } else {
+                                l.SetText("oh...")
+                        }
+                }, w,
+        )
+})
+
+
+
+---------------------------------
+
+
+
+▼リスト4-22
+func main() {
+        a := app.New()
+        w := a.NewWindow("Hello")
+        l := widget.NewLabel("Hello Fyne!")
+        e := widget.NewEntry()
+        b := widget.NewButton("click", func() {
+                dialog.ShowCustomConfirm("Enter message.", "OK",
+                        "Cancel", e, func(f bool) {
+                                if f {
+                                        l.SetText("typed: '" + e.Text + "'.")
+                                } else {
+                                        l.SetText("no message...")
+                                }
+                        }, w)
+        })
+        w.SetContent(
+                fyne.NewContainerWithLayout(
+                        layout.NewBorderLayout(
+                                nil, b, nil, nil,
+                        ),
+                        l, b,
+                ),
+        )
+        a.Settings().SetTheme(theme.LightTheme()) //☆
+        w.Resize(fyne.NewSize(350, 250))
+        w.ShowAndRun()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト4-23
+// MyEntry is custom entry.
+type MyEntry struct {
+        widget.Entry
+        entered func(e *MyEntry)
+}
+
+// NewMyEntry create MyEntry.
+func NewMyEntry(f func(e *MyEntry)) *MyEntry {
+        e := &MyEntry{}
+        e.ExtendBaseWidget(e)
+        e.entered = f
+        return e
+}
+
+// KeyDown is Keydown Event.
+func (e *MyEntry) KeyDown(key *fyne.KeyEvent) {
+        switch key.Name {
+        case fyne.KeyReturn, fyne.KeyEnter:
+                e.entered(e)
+        default:
+                e.Entry.KeyDown(key)
+        }
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト4-24
+// importから"fyne.io/fyne/dialog"と"fyne.io/fyne/layout"を削除
+
+func main() {
+        a := app.New()
+        w := a.NewWindow("Hello")
+        l := widget.NewLabel("Hello Fyne!")
+        e := NewMyEntry(func(e *MyEntry) {
+                s := e.Text
+                e.SetText("")
+                l.SetText("you type '" + s + "'.")
+        })
+
+        w.SetContent(
+                widget.NewVBox(
+                        l, e,
+                ),
+        )
+        a.Settings().SetTheme(theme.LightTheme()) //☆
+        w.Resize(fyne.NewSize(300, 100))
+        w.ShowAndRun()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト4-25
+package main
+
+import (
+        "strconv"
+
+        "fyne.io/fyne/layout"
+
+        "fyne.io/fyne"
+        "fyne.io/fyne/app"
+        "fyne.io/fyne/widget"
+)
+
+// cdata is data structure.
+type cdata struct {
+        mem int
+        cal string
+        flg bool
+}
+
+// createNumButtons create number buttons.
+func createNumButtons(f func(v int)) *fyne.Container {
+        c := fyne.NewContainerWithLayout(
+                layout.NewGridLayout(3),
+                widget.NewButton(strconv.Itoa(7), func() { f(7) }),
+                widget.NewButton(strconv.Itoa(8), func() { f(8) }),
+                widget.NewButton(strconv.Itoa(9), func() { f(9) }),
+                widget.NewButton(strconv.Itoa(4), func() { f(4) }),
+                widget.NewButton(strconv.Itoa(5), func() { f(5) }),
+                widget.NewButton(strconv.Itoa(6), func() { f(6) }),
+                widget.NewButton(strconv.Itoa(1), func() { f(1) }),
+                widget.NewButton(strconv.Itoa(2), func() { f(2) }),
+                widget.NewButton(strconv.Itoa(3), func() { f(3) }),
+                widget.NewButton(strconv.Itoa(0), func() { f(0) }),
+        )
+        return c
+}
+
+// createCalcButtons create operation-symbol button.
+func createCalcButtons(f func(c string)) *fyne.Container {
+        c := fyne.NewContainerWithLayout(
+                layout.NewGridLayout(1),
+                widget.NewButton("CL", func() {
+                        f("CL")
+                }),
+                widget.NewButton("/", func() {
+                        f("/")
+                }),
+                widget.NewButton("*", func() {
+                        f("*")
+                }),
+                widget.NewButton("+", func() {
+                        f("+")
+                }),
+                widget.NewButton("-", func() {
+                        f("-")
+                }),
+        )
+        return c
+}
+
+// main function.
+func main() {
+        a := app.New()
+        w := a.NewWindow("Calc")
+        w.SetFixedSize(true)
+        l := widget.NewLabel("0")
+        l.Alignment = fyne.TextAlignTrailing
+
+        data := cdata{
+                mem: 0,
+                cal: "",
+                flg: false,
+        }
+
+        // calc is calculate.
+        calc := func(n int) {
+                switch data.cal {
+                case "":
+                        data.mem = n
+                case "+":
+                        data.mem += n
+                case "-":
+                        data.mem -= n
+                case "*":
+                        data.mem *= n
+                case "/":
+                        data.mem /= n
+                }
+                l.SetText(strconv.Itoa(data.mem))
+                data.flg = true
+        }
+
+        // pushNum is number button action.
+        pushNum := func(v int) {
+                s := l.Text
+                if data.flg {
+                        s = "0"
+                        data.flg = false
+                }
+                s += strconv.Itoa(v)
+                n, err := strconv.Atoi(s)
+                if err == nil {
+                        l.SetText(strconv.Itoa(n))
+                }
+        }
+
+        // pushCalc is operation symbol button action.
+        pushCalc := func(c string) {
+                if c == "CL" {
+                        l.SetText("0")
+                        data.mem = 0
+                        data.flg = false
+                        data.cal = ""
+                        return
+                }
+                n, er := strconv.Atoi(l.Text)
+                if er != nil {
+                        return
+                }
+                calc(n)
+                data.cal = c
+        }
+
+        // pushEnter is enter button action.
+        pushEnter := func() {
+                n, er := strconv.Atoi(l.Text)
+                if er != nil {
+                        return
+                }
+                calc(n)
+                data.cal = ""
+        }
+
+        k := createNumButtons(pushNum)
+        c := createCalcButtons(pushCalc)
+        e := widget.NewButton("Enter", pushEnter)
+
+        w.SetContent(
+                fyne.NewContainerWithLayout(
+                        layout.NewBorderLayout(
+                                l, e, nil, c,
+                        ),
+                        l, e, k, c,
+                ),
+        )
+        w.Resize(fyne.NewSize(300, 200))
+        w.ShowAndRun()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト4-26
+package main
+
+import (
+        "io/ioutil"
+        "os"
+
+        "fyne.io/fyne/dialog"
+        "fyne.io/fyne/layout"
+        "fyne.io/fyne/theme"
+
+        "fyne.io/fyne"
+        "fyne.io/fyne/app"
+        "fyne.io/fyne/widget"
+)
+
+// main function.
+func main() {
+        a := app.New()
+        a.Settings().SetTheme(theme.DarkTheme())
+        w := a.NewWindow("Calc")
+        edit := widget.NewEntry()
+        edit.MultiLine = true
+        sc := widget.NewScrollContainer(edit)
+        inf := widget.NewLabel("infomation bar.")
+
+        // new file function.
+        nf := func() {
+                dialog.ShowConfirm("Alert", "Create New document?", func(f bool) {
+                        if f {
+                                edit.SetText("")
+                                inf.SetText("create new document.")
+                        }
+                }, w)
+        }
+
+        // open file function.
+        of := func() {
+                f := widget.NewEntry()
+                dialog.ShowCustomConfirm("Open file name.", "OK",
+                        "Cancel", f, func(b bool) {
+                                if b {
+                                        fn := f.Text + ".txt"
+                                        ba, er := ioutil.ReadFile(fn)
+                                        if er != nil {
+                                                dialog.ShowError(er, w)
+                                        } else {
+                                                edit.SetText(string(ba))
+                                                inf.SetText("Open from file '" + fn + "'.")
+                                        }
+                                }
+                        }, w)
+        }
+
+        // save file function.
+        sf := func() {
+                f := widget.NewEntry()
+                dialog.ShowCustomConfirm("Save file name.", "OK",
+                        "Cancel", f, func(b bool) {
+                                if b {
+                                        fn := f.Text + ".txt"
+                                        er := ioutil.WriteFile(fn,
+                                                []byte(edit.Text),
+                                                os.ModePerm)
+                                        if er != nil {
+                                                dialog.ShowError(er, w)
+                                                return
+                                        }
+                                        inf.SetText("Save to file '" + fn + "'.")
+                                }
+                        }, w)
+        }
+
+        // quit function.
+        qf := func() {
+                dialog.ShowConfirm("Alert", "Quit application?", func(f bool) {
+                        if f {
+                                a.Quit()
+                        }
+                }, w)
+        }
+
+        tf := true
+
+        // change theme function.
+        cf := func() {
+                if tf {
+                        a.Settings().SetTheme(theme.LightTheme())
+                        inf.SetText("change to Light-Theme.")
+                } else {
+                        a.Settings().SetTheme(theme.DarkTheme())
+                        inf.SetText("change to Dark-Theme.")
+                }
+                tf = !tf
+        }
+
+        // create menubar function.
+        createMenubar := func() *fyne.MainMenu {
+                return fyne.NewMainMenu(
+                        fyne.NewMenu("File",
+                                fyne.NewMenuItem("New", func() {
+                                        nf()
+                                }),
+                                fyne.NewMenuItem("Open...", func() {
+                                        of()
+                                }),
+                                fyne.NewMenuItem("Save...", func() {
+                                        sf()
+                                }),
+                                fyne.NewMenuItem("Change Theme", func() {
+                                        cf()
+                                }),
+                                fyne.NewMenuItem("Quit", func() {
+                                        qf()
+                                }),
+                        ),
+                        fyne.NewMenu("Edit",
+                                fyne.NewMenuItem("Cut", func() {
+                                        edit.TypedShortcut(
+                                                &fyne.ShortcutCut{
+                                                        Clipboard: w.Clipboard()})
+                                        inf.SetText("Cut text.")
+                                }),
+                                fyne.NewMenuItem("Copy", func() {
+                                        edit.TypedShortcut(
+                                                &fyne.ShortcutCopy{
+                                                        Clipboard: w.Clipboard()})
+                                        inf.SetText("Copy text.")
+                                }),
+                                fyne.NewMenuItem("Paste", func() {
+                                        edit.TypedShortcut(
+                                                &fyne.ShortcutPaste{
+                                                        Clipboard: w.Clipboard()})
+                                        inf.SetText("Paste text.")
+                                }),
+                        ),
+                )
+        }
+
+        // create toolbar function.
+        createToolbar := func() *widget.Toolbar {
+                return widget.NewToolbar(
+                        widget.NewToolbarAction(
+                                theme.DocumentCreateIcon(), func() {
+                                        nf()
+                                }),
+                        widget.NewToolbarAction(
+                                theme.FolderOpenIcon(), func() {
+                                        of()
+                                }),
+                        widget.NewToolbarAction(
+                                theme.DocumentSaveIcon(), func() {
+                                        sf()
+                                }),
+                )
+        }
+
+        mb := createMenubar()
+        tb := createToolbar()
+
+        w.SetMainMenu(mb)
+        w.SetContent(
+                fyne.NewContainerWithLayout(
+                        layout.NewBorderLayout(
+                                tb, inf, nil, nil,
+                        ),
+                        tb, inf, sc,
+                ),
+        )
+        w.Resize(fyne.NewSize(500, 500))
+        w.ShowAndRun()
+}
+
+
+
+---------------------------------
+■5章
+---------------------------------
+
+
+
+▼リスト5-1――テキストファイルを読み込んで表示する関数
+// open file function.
+of := func() {
+        f := widget.NewEntry()
+        dialog.ShowCustomConfirm("Open file name.", "OK",
+                "Cancel", f, func(b bool) {
+                        if b {
+                                fn := f.Text + ".txt"
+                                ba, er := ioutil.ReadFile(fn)
+                                if er != nil {
+                                        dialog.ShowError(er, w)
+                                } else {
+                                        edit.SetText(string(ba))
+                                        inf.SetText("Open from file '" + fn + "'.")
+                                }
+                        }
+                }, w)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト5-2――テキストファイルに書き出す関数
+// save file function.
+sf := func() {
+        f := widget.NewEntry()
+        dialog.ShowCustomConfirm("Save file name.", "OK",
+                "Cancel", f, func(b bool) {
+                        if b {
+                                fn := f.Text + ".txt"
+                                er := ioutil.WriteFile(fn,
+                                        []byte(edit.Text),
+                                        os.ModePerm)
+                                if er != nil {
+                                        dialog.ShowError(er, w)
+                                        return
+                                }
+                                inf.SetText("Save to file '" + fn + "'.")
+                        }
+                }, w)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト5-3
+// importは以下のように修正
+import (
+        "os"
+    "fmt"
+    "hello"
+)
+
+func main() {
+        // write text function.
+        wt := func(f *os.File, s string) {
+                _, er := f.WriteString(s + "\n")
+                if er != nil {
+                        fmt.Println(er)
+                        f.Close()
+                        return
+                }
+        }
+
+        fn := "data.txt"
+
+        f, er := os.OpenFile(fn, os.O_APPEND|os.O_CREATE|os.O_WRONLY, os.ModePerm)
+        if er != nil {
+                fmt.Println(er)
+                return
+        }
+        fmt.Println("*** start ***")
+        wt(f, "*** start ***")
+        for {
+                s := hello.Input("type message")
+                if s == "" {
+                        break
+                }
+                wt(f, s)
+        }
+        wt(f, "*** end ***\n\n")
+        fmt.Println("*** end ***")
+        er = f.Close()
+        if er != nil {
+                fmt.Println(er)
+        }
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト5-4
+func main() {
+        // write text function.
+        wt := func(f *os.File, s string) {
+                _, er := f.WriteString(s + "\n")
+                if er != nil {
+                        panic(er)
+                }
+        }
+
+        fn := "data.txt"
+
+        f, er := os.OpenFile(fn, os.O_APPEND|os.O_CREATE|os.O_WRONLY, os.ModePerm)
+        if er != nil {
+                panic(er)
+        }
+        // defer close.
+        defer f.Close()
+
+        fmt.Println("*** start ***")
+        wt(f, "*** start ***")
+        for {
+                s := hello.Input("type message")
+                if s == "" {
+                        break
+                }
+                wt(f, s)
+        }
+        wt(f, "*** end ***\n\n")
+        fmt.Println("*** end ***")
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト5-5
+// importから"hello"を削除、"io/ioutil"を追加
+
+func main() {
+        // write text function.
+        rt := func(f *os.File) {
+                s, er := ioutil.ReadAll(f)
+                if er != nil {
+                        panic(er)
+                }
+                fmt.Println(string(s))
+        }
+
+        fn := "data.txt"
+
+        f, er := os.OpenFile(fn, os.O_RDONLY, os.ModePerm)
+        if er != nil {
+                panic(er)
+        }
+        // defer close.
+        defer f.Close()
+
+        fmt.Println("<< start >>")
+        rt(f)
+        fmt.Println("<< end >>")
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト5-6
+// importから"io/ioutil"を削除、"bufio" を追加
+
+rt := func(f *os.File) {
+        r := bufio.NewReaderSize(f, 4096)
+        for i := 1; true; i++ {
+                s, _, er := r.ReadLine()
+                if er != nil {
+                        break
+                }
+                fmt.Println(i, ":", string(s))
+        }
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト5-7
+// importは以下のように修正
+import (
+        "fmt"
+        "io/ioutil"
+)
+
+func main() {
+        fs, er := ioutil.ReadDir(".")
+        if er != nil {
+                panic(er)
+        }
+
+        for _, f := range fs {
+                fmt.Println(f.Name(), "(", f.Size(), ")")
+        }
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト5-8
+// importに"net/http" を追加
+
+func main() {
+        p := "https://golang.org"
+        re, er := http.Get(p)
+        if er != nil {
+                panic(er)
+        }
+        defer re.Body.Close()
+
+        s, er := ioutil.ReadAll(re.Body)
+        if er != nil {
+                panic(er)
+        }
+
+        fmt.Println(string(s))
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト5-9
+// importは以下のように修正
+import (
+        "github.com/PuerkitoBio/goquery"
+)
+
+func main() {
+        p := "https://golang.org"
+        doc, er := goquery.NewDocument(p)
+        if er != nil {
+                panic(er)
+        }
+
+        doc.Find("a").Each(func(n int, sel *goquery.Selection) {
+                lk, _ := sel.Attr("href")
+                println(n, sel.Text(), "(", lk, ")")
+        })
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト5-10
+[
+        {"mail":"taro@yamada","name":"taro","tel":"333-333"},
+        {"mail":"syoda@tuyano.com","name":"tuyano","tel":"999-999"},
+        {"mail":"hanako@flower","name":"hanako","tel":"888-888"},
+        {"mail":"sachiko@happy","name":"sachiko","tel":"777-777"}
+]
+
+
+
+---------------------------------
+
+
+
+▼リスト5-11
+// importは以下のように修正
+import (
+        "net/http"
+        "io/ioutil"
+        "fmt"
+        "encoding/json"
+)
+
+
+
+func main() {
+        p := "https://tuyano-dummy-data.firebaseio.com/mydata.json"
+        re, er := http.Get(p)
+        if er != nil {
+                panic(er)
+        }
+        defer re.Body.Close()
+
+        s, er := ioutil.ReadAll(re.Body)
+        if er != nil {
+                panic(er)
+        }
+
+        var data []interface{}
+        er = json.Unmarshal(s, &data)
+        if er != nil {
+                panic(er)
+        }
+
+        for i, im := range data {
+                m := im.(map[string]interface{})
+                fmt.Println(i, m["name"].(string), m["mail"].(string), m["tel"].(string))
+        }
+
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト5-12
+// Mydata is json structure.
+type Mydata struct {
+        Name string
+        Mail string
+        Tel  string
+}
+
+// Str get string value.
+func (m *Mydata) Str() string {
+        return "<\"" + m.Name + "\" " + m.Mail + ", " + m.Tel + ">"
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト5-13
+// importから"fmt"を削除
+
+func main() {
+        p := "https://tuyano-dummy-data.firebaseio.com/mydata.json"
+
+        re, er := http.Get(p)
+        if er != nil {
+                panic(er)
+        }
+        defer re.Body.Close()
+
+        s, er := ioutil.ReadAll(re.Body)
+        if er != nil {
+                panic(er)
+        }
+
+        var itms []Mydata
+        er = json.Unmarshal(s, &itms)
+        if er != nil {
+                panic(er)
+        }
+
+        for i, im := range itms {
+                println(i, im.Str())
+        }
+
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト5-14
+CREATE TABLE "mydata" (
+        "id"        INTEGER PRIMARY KEY AUTOINCREMENT,
+        "name"        TEXT NOT NULL,
+        "mail"        TEXT,
+        "age"        INTEGER
+);
+
+
+
+---------------------------------
+
+
+
+▼リスト5-15
+INSERT INTO "mydata" VALUES (1,'Taro','taro@yamada',39);
+INSERT INTO "mydata" VALUES (2,'Hanako','hanako@flower',28);
+INSERT INTO "mydata" VALUES (3,'Sachiko','sachiko@happy',17);
+INSERT INTO "mydata" VALUES (4,'Jiro','jiro@change',6);
+
+
+
+---------------------------------
+
+
+
+▼リスト5-16
+// Mydata is json structure.
+type Mydata struct {
+        ID   int
+        Name string
+        Mail string
+        Age  int
+}
+
+// Str get string value.
+func (m *Mydata) Str() string {
+        return "<\"" + strconv.Itoa(m.ID) + ":" + m.Name + "\" " + m.Mail + ", " + strconv.Itoa(m.Age) + ">"
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト5-17
+// importは以下のように修正
+import (
+        "strconv"
+        "fmt"
+        "database/sql"
+        _"github.com/mattn/go-sqlite3" 
+)
+
+
+
+func main() {
+        con, er := sql.Open("sqlite3", "data.sqlite3")
+        if er != nil {
+                panic(er)
+        }
+        defer con.Close()
+
+        q := "select * from mydata"
+        rs, er := con.Query(q)
+        if er != nil {
+                panic(er)
+        }
+        for rs.Next() {
+                var md Mydata
+                er := rs.Scan(&md.ID, &md.Name, &md.Mail, &md.Age)
+                if er != nil {
+                        panic(er)
+                }
+                fmt.Println(md.Str())
+        }
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト5-18
+// "hello" をインポートしておく
+
+var qry string = "select * from mydata where id = ?" //☆
+
+func main() {
+        con, er := sql.Open("sqlite3", "data.sqlite3")
+        if er != nil {
+                panic(er)
+        }
+        defer con.Close()
+
+        for true {
+                // ●begin
+                s := hello.Input("id")
+                if s == "" {
+                        break
+                }
+                n, er := strconv.Atoi(s)
+                if er != nil {
+                        panic(er)
+                }
+                rs, er := con.Query(qry, n)
+                // ●end
+                if er != nil {
+                        panic(er)
+                }
+                for rs.Next() {
+                        var md Mydata
+                        er := rs.Scan(&md.ID, &md.Name, &md.Mail, &md.Age)
+                        if er != nil {
+                                panic(er)
+                        }
+                        fmt.Println(md.Str())
+                }
+        }
+        fmt.Println("***end***")
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト5-19
+func main() {
+        con, er := sql.Open("sqlite3", "data.sqlite3")
+        if er != nil {
+                panic(er)
+        }
+        defer con.Close()
+
+        for true {
+                s := hello.Input("id")
+                if s == "" {
+                        break
+                }
+                n, er := strconv.Atoi(s)
+                if er != nil {
+                        panic(er)
+                }
+                rs := con.QueryRow(qry, n)
+                var md Mydata
+                er2 := rs.Scan(&md.ID, &md.Name, &md.Mail, &md.Age)
+                if er2 != nil {
+                        panic(er2)
+                }
+                fmt.Println(md.Str())
+        }
+        fmt.Println("***end***")
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト5-20
+var qry string = "select * from mydata where name like ?" //☆
+
+
+
+---------------------------------
+
+
+
+▼リスト5-21
+s := hello.Input("find")
+if s == "" {
+        break
+}
+rs, er := con.Query(qry, "%"+s+"%") // ●
+if er != nil {
+        panic(er)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト5-22
+var qry string = "select * from mydata where name like ? or mail like ?"
+
+
+
+---------------------------------
+
+
+
+▼リスト5-23
+rs, er := con.Query(qry, "%"+s+"%", "%"+s+"%")
+
+
+
+---------------------------------
+
+
+
+▼リスト5-24
+func main() {
+        con, er := sql.Open("sqlite3", "data.sqlite3")
+        if er != nil {
+                panic(er)
+        }
+        defer con.Close()
+
+        nm := hello.Input("name")
+        ml := hello.Input("mail")
+        age := hello.Input("age")
+        ag, _ := strconv.Atoi(age)
+
+        qry := "insert into mydata (name,mail,age) values (?,?,?)"
+        con.Exec(qry, nm, ml, ag)
+        showRecord(con)
+}
+
+// print all record.
+func showRecord(con *sql.DB) {
+        qry = "select * from mydata"
+        rs, _ := con.Query(qry)
+        for rs.Next() {
+                fmt.Println(mydatafmRws(rs).Str())
+        }
+}
+// get Mydata from Rows.
+func mydatafmRws(rs *sql.Rows) *Mydata {
+        var md Mydata
+        er := rs.Scan(&md.ID, &md.Name, &md.Mail, &md.Age)
+        if er != nil {
+                panic(er)
+        }
+        return &md
+}
+// get Mydata from Row.
+func mydatafmRw(rs *sql.Row) *Mydata {
+        var md Mydata
+        er := rs.Scan(&md.ID, &md.Name, &md.Mail, &md.Age)
+        if er != nil {
+                panic(er)
+        }
+        return &md
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト5-25
+func main() {
+        con, er := sql.Open("sqlite3", "data.sqlite3")
+        if er != nil {
+                panic(er)
+        }
+        defer con.Close()
+
+        ids := hello.Input("update ID")
+        id, _ := strconv.Atoi(ids)
+        qry = "select * from mydata where id = ?"
+        rw := con.QueryRow(qry, id)
+        tgt := mydatafmRw(rw)
+        ae := strconv.Itoa(tgt.Age)
+        nm := hello.Input("name(" + tgt.Name + ")")
+        ml := hello.Input("mail(" + tgt.Mail + ")")
+        ge := hello.Input("age(" + ae + ")")
+        ag, _ := strconv.Atoi(ge)
+
+        if nm == "" {
+                nm = tgt.Name
+        }
+        if ml == "" {
+                ml = tgt.Mail
+        }
+        if ge == "" {
+                ag = tgt.Age
+        }
+
+        qry = "update mydata set name=?,mail=?,age=? where id=?"
+        con.Exec(qry, nm, ml, ag, id)
+
+        showRecord(con)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト5-26
+func main() {
+        con, er := sql.Open("sqlite3", "data.sqlite3")
+        if er != nil {
+                panic(er)
+        }
+        defer con.Close()
+
+        ids := hello.Input("update ID")
+        id, _ := strconv.Atoi(ids)
+        qry = "select * from mydata where id = ?"
+        rw := con.QueryRow(qry, id)
+        tgt := mydatafmRw(rw)
+        fmt.Println(tgt.Str())
+        f := hello.Input("delete it? (y/n)")
+        if f == "y" {
+                qry = "delete from mydata where id=?"
+                con.Exec(qry, id)
+
+        }
+        showRecord(con)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト5-27
+CREATE TABLE "md_data" (
+        "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+         "title" TEXT NOT NULL,
+        "url" TEXT NOT NULL,
+        "markdown" TEXT
+);
+
+
+
+---------------------------------
+
+
+
+▼リスト5-28
+package main
+
+import (
+        "database/sql"
+        "io/ioutil"
+        "os"
+        "strconv"
+        "strings"
+
+        "fyne.io/fyne/dialog"
+        "fyne.io/fyne/layout"
+        "fyne.io/fyne/theme"
+
+        "fyne.io/fyne"
+        "fyne.io/fyne/app"
+        "fyne.io/fyne/widget"
+        md "github.com/JohannesKaufmann/html-to-markdown"
+        "github.com/PuerkitoBio/goquery"
+        _ "github.com/mattn/go-sqlite3"
+)
+
+func main() {
+        a := app.New()
+        w := a.NewWindow("app")
+        a.Settings().SetTheme(theme.DarkTheme())
+        edit := widget.NewMultiLineEntry()
+        sc := widget.NewScrollContainer(edit)
+        fnd := widget.NewEntry()
+        inf := widget.NewLabel("infomation bar.")
+
+        // show alert.
+        showInfo := func(s string) {
+                inf.SetText(s)
+                dialog.ShowInformation("info", s, w)
+        }
+
+        // error check.
+        err := func(er error) bool {
+                if er != nil {
+                        inf.SetText(er.Error())
+                        return true
+                }
+                return false
+        }
+
+        // open SQL and return DB
+        setDB := func() *sql.DB {
+                con, er := sql.Open("sqlite3", "data.sqlite3")
+                if err(er) {
+                        return nil
+                }
+                return con
+        }
+
+        // set New form function.
+        nf := func() {
+                dialog.ShowConfirm("Alert", "Clear form?", func(f bool) {
+                        if f {
+                                fnd.SetText("")
+                                w.SetTitle("App")
+                                edit.SetText("")
+                                inf.SetText("Clear form.")
+                        }
+                }, w)
+        }
+
+        // get Web data function.
+        wf := func() {
+                fstr := fnd.Text
+                if !strings.HasPrefix(fstr, "http") {
+                        fstr = "http://" + fstr
+                        fnd.SetText(fstr)
+                }
+                dc, er := goquery.NewDocument(fstr)
+                if err(er) {
+                        return
+                }
+                ttl := dc.Find("title")
+                w.SetTitle(ttl.Text())
+                html, er := dc.Html()
+                if err(er) {
+                        return
+                }
+                cvtr := md.NewConverter("", true, nil)
+                mkdn, er := cvtr.ConvertString(html)
+                if err(er) {
+                        return
+                }
+                edit.SetText(mkdn)
+                inf.SetText("get web data.")
+        }
+
+        // find data function.
+        ff := func() {
+                var qry string = "select * from md_data where title like ?"
+                con := setDB()
+                if con == nil {
+                        return
+                }
+                defer con.Close()
+
+                rs, er := con.Query(qry, "%"+fnd.Text+"%")
+                if err(er) {
+                        return
+                }
+                res := ""
+                for rs.Next() {
+                        var ID int
+                        var TT string
+                        var UR string
+                        var MR string
+                        er := rs.Scan(&ID, &TT, &UR, &MR)
+                        if err(er) {
+                                return
+                        }
+                        res += strconv.Itoa(ID) + ":" + TT + "\n"
+                }
+                edit.SetText(res)
+                inf.SetText("Find:" + fnd.Text)
+        }
+
+        // find by id function.
+        idf := func(id int) {
+                var qry string = "select * from md_data where id = ?"
+                con := setDB()
+                if con == nil {
+                        return
+                }
+                defer con.Close()
+
+                rs := con.QueryRow(qry, id)
+
+                var ID int
+                var TT string
+                var UR string
+                var MR string
+                rs.Scan(&ID, &TT, &UR, &MR)
+                w.SetTitle(TT)
+                fnd.SetText(UR)
+                edit.SetText(MR)
+                inf.SetText("Find id=" + strconv.Itoa(ID) + ".")
+        }
+
+        // save function.
+        sf := func() {
+                dialog.ShowConfirm("Alert", "Save data?", func(f bool) {
+                        if f {
+                                con := setDB()
+                                if con == nil {
+                                        return
+                                }
+                                defer con.Close()
+
+                                qry := "insert into md_data (title,url,markdown) values (?,?,?)"
+                                _, er := con.Exec(qry, w.Title(), fnd.Text, edit.Text)
+                                if err(er) {
+                                        return
+                                }
+                                showInfo("Save data to database!")
+                        }
+                }, w)
+        }
+
+        // Export data function.
+        xf := func() {
+                dialog.ShowConfirm("Alert", "Export this data?", func(f bool) {
+                        if f {
+                                fn := w.Title() + ".md"
+                                ctt := "# " + w.Title() + "\n\n"
+                                ctt += "## " + fnd.Text + "\n\n"
+                                ctt += edit.Text
+                                er := ioutil.WriteFile(fn,
+                                        []byte(ctt),
+                                        os.ModePerm)
+                                if err(er) {
+                                        return
+                                }
+                                showInfo("Export data to file \"" + fn + "\".")
+                        }
+                }, w)
+        }
+
+        // quit function.
+        qf := func() {
+                dialog.ShowConfirm("Alert", "Quit application?", func(f bool) {
+                        if f {
+                                a.Quit()
+                        }
+                }, w)
+        }
+
+        tf := true
+
+        // change theme function.
+        cf := func() {
+                if tf {
+                        a.Settings().SetTheme(theme.LightTheme())
+                        inf.SetText("change to Light-Theme.")
+                } else {
+                        a.Settings().SetTheme(theme.DarkTheme())
+                        inf.SetText("change to Dark-Theme.")
+                }
+                tf = !tf
+        }
+
+        // create button function.
+        cbtn := widget.NewButton("Clear", func() {
+                nf()
+        })
+        wbtn := widget.NewButton("Get Web", func() {
+                wf()
+        })
+        fbtn := widget.NewButton("Find data", func() {
+                ff()
+        })
+        ibtn := widget.NewButton("Get ID data", func() {
+                rid, er := strconv.Atoi(fnd.Text)
+                if err(er) {
+                        return
+                }
+                idf(rid)
+        })
+        sbtn := widget.NewButton("Save data", func() {
+                sf()
+        })
+        xbtn := widget.NewButton("Export data", func() {
+                xf()
+        })
+
+        // create menubar function.
+        createMenubar := func() *fyne.MainMenu {
+                return fyne.NewMainMenu(
+                        fyne.NewMenu("File",
+                                fyne.NewMenuItem("New", func() {
+                                        nf()
+                                }),
+                                fyne.NewMenuItem("Get Web", func() {
+                                        wf()
+                                }),
+                                fyne.NewMenuItem("Find", func() {
+                                        ff()
+                                }),
+                                fyne.NewMenuItem("Save", func() {
+                                        sf()
+                                }),
+                                fyne.NewMenuItem("Export", func() {
+                                        xf()
+                                }),
+                                fyne.NewMenuItem("Change Theme", func() {
+                                        cf()
+                                }),
+                                fyne.NewMenuItem("Quit", func() {
+                                        qf()
+                                }),
+                        ),
+                        fyne.NewMenu("Edit",
+                                fyne.NewMenuItem("Cut", func() {
+                                        edit.TypedShortcut(
+                                                &fyne.ShortcutCut{
+                                                        Clipboard: w.Clipboard()})
+                                        inf.SetText("Cut text.")
+                                }),
+                                fyne.NewMenuItem("Copy", func() {
+                                        edit.TypedShortcut(
+                                                &fyne.ShortcutCopy{
+                                                        Clipboard: w.Clipboard()})
+                                        inf.SetText("Copy text.")
+                                }),
+                                fyne.NewMenuItem("Paste", func() {
+                                        edit.TypedShortcut(
+                                                &fyne.ShortcutPaste{
+                                                        Clipboard: w.Clipboard()})
+                                        inf.SetText("Paste text.")
+                                }),
+                        ),
+                )
+        }
+
+        // create toolbar function.
+        createToolbar := func() *widget.Toolbar {
+                return widget.NewToolbar(
+                        widget.NewToolbarAction(
+                                theme.DocumentCreateIcon(), func() {
+                                        nf()
+                                }),
+                        widget.NewToolbarAction(
+                                theme.NavigateNextIcon(), func() {
+                                        wf()
+                                }),
+                        widget.NewToolbarAction(
+                                theme.SearchIcon(), func() {
+                                        ff()
+                                }),
+                        widget.NewToolbarAction(
+                                theme.DocumentSaveIcon(), func() {
+                                        sf()
+                                }),
+                )
+        }
+
+        mb := createMenubar()
+        tb := createToolbar()
+
+        fc := widget.NewVBox(
+                tb,
+                widget.NewForm(
+                        widget.NewFormItem(
+                                "FIND", fnd,
+                        ),
+                ),
+                widget.NewHBox(
+                        cbtn, wbtn, fbtn, ibtn, sbtn, xbtn,
+                ),
+        )
+
+        w.SetMainMenu(mb)
+        w.SetContent(
+                fyne.NewContainerWithLayout(
+                        layout.NewBorderLayout(
+                                fc, inf, nil, nil,
+                        ),
+                        fc, inf, sc,
+                ),
+        )
+        w.Resize(fyne.NewSize(500, 500))
+        w.ShowAndRun()
+}
+
+
+
+---------------------------------
+■6章
+---------------------------------
+
+
+TODO
+▼リスト6-1
+package main
+
+import (
+        "net/http"
+)
+
+func main() {
+        http.ListenAndServe("", http.NotFoundHandler())
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-2
+func main() {
+        http.ListenAndServe("", http.FileServer(http.Dir(".")))
+}
+
+---------------------------------
+
+
+
+▼リスト6-3
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Index</title>
+</head>
+<body>
+    <h1>Index</h1>
+    <p>This is sample web page!</p>
+</body>
+</html>
+
+
+
+---------------------------------
+
+
+
+▼リスト6-4
+func main() {
+        hh := func(w http.ResponseWriter, rq *http.Request) {
+                w.Write([]byte("Hello, This is GO-server!!"))
+        }
+
+        http.HandleFunc("/hello", hh)
+
+        http.ListenAndServe("", nil)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-5
+func main() {
+        msg := `<html><body>
+                <h1>Hello</h1>
+                <p>This is GO-server!!</p>
+                </body></html>`
+        hh := func(w http.ResponseWriter, rq *http.Request) {
+                w.Write([]byte(msg))
+        }
+
+        http.HandleFunc("/hello", hh)
+
+        http.ListenAndServe("", nil)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-6
+package main
+
+import (
+        "log"
+        "net/http"
+        "text/template"
+)
+
+func main() {
+        html := `<html>
+        <body>
+        <h1>HELLO</h1>
+        <p>This is sample message.</p>
+        </body></html>`
+        tf, er := template.New("index").Parse(html)
+        if er != nil {
+                log.Fatal(er)
+        }
+        hh := func(w http.ResponseWriter, rq *http.Request) {
+                er = tf.Execute(w, nil)
+                if er != nil {
+                        log.Fatal(er)
+                }
+        }
+
+        http.HandleFunc("/hello", hh)
+
+        http.ListenAndServe("", nil)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-7
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Hello</title>
+    <link rel="stylesheet" 
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+    crossorigin="anonymous">
+</head>
+<body class="container">
+    <h1 class="display-4 mb-4">Hello!</h1>
+    <p>This is Hello page.</p>
+</body>
+</html>
+
+
+
+---------------------------------
+
+
+
+▼リスト6-8
+func main() {
+        tf, er := template.ParseFiles("templates/hello.html")
+        if er != nil {
+                tf, _ = template.New("index").Parse("<html><body><h1>NO TEMPLATE.</h1></body></html>")
+        }
+        hh := func(w http.ResponseWriter, rq *http.Request) {
+                er = tf.Execute(w, nil)
+                if er != nil {
+                        log.Fatal(er)
+                }
+        }
+
+        http.HandleFunc("/hello", hh)
+
+        http.ListenAndServe("", nil)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-9
+package main
+
+import (
+        "log"
+        "net/http"
+        "text/template"
+)
+
+// Temps is template structure.
+type Temps struct {
+        notemp *template.Template
+        indx   *template.Template
+        helo   *template.Template
+}
+
+// Template for no-template.
+func notemp() *template.Template {
+        src := "<html><body><h1>NO TEMPLATE.</h1></body></html>"
+        tmp, _ := template.New("index").Parse(src)
+        return tmp
+}
+
+// setup template function.
+func setupTemp() *Temps {
+        temps := new(Temps)
+
+        temps.notemp = notemp()
+
+        // set index template.
+        indx, er := template.ParseFiles("templates/index.html")
+        if er != nil {
+                indx = temps.notemp
+        }
+        temps.indx = indx
+
+        // set hello template.
+        helo, er := template.ParseFiles("templates/hello.html")
+        if er != nil {
+                helo = temps.notemp
+        }
+        temps.helo = helo
+
+        return temps
+}
+
+// index handler.
+func index(w http.ResponseWriter, rq *http.Request, tmp *template.Template) {
+        er := tmp.Execute(w, nil)
+        if er != nil {
+                log.Fatal(er)
+        }
+}
+
+// hello handler.
+func hello(w http.ResponseWriter, rq *http.Request, tmp *template.Template) {
+        er := tmp.Execute(w, nil)
+        if er != nil {
+                log.Fatal(er)
+        }
+}
+
+// main program.
+func main() {
+        temps := setupTemp()
+        // index handling.
+        http.HandleFunc("/", func(w http.ResponseWriter, rq *http.Request) {
+                index(w, rq, temps.indx)
+        })
+        // hello handling
+        http.HandleFunc("/hello", func(w http.ResponseWriter, rq *http.Request) {
+                hello(w, rq, temps.helo)
+        })
+        
+        http.ListenAndServe("", nil)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-10
+<body class="container">
+    <h1 class="display-4 mb-4">{{.Title}}</h1>
+    <p>{{.Message}}</p>
+</body>
+
+
+
+---------------------------------
+
+
+
+▼リスト6-11
+func hello(w http.ResponseWriter, rq *http.Request,
+        tmp *template.Template) {
+
+        item := struct {
+                Title   string
+                Message string
+        }{
+                Title:   "Send values",
+                Message: "This is Sample message.<br>これはサンプルです。",
+        }
+
+        er := tmp.Execute(w, item)
+        if er != nil {
+                log.Fatal(er)
+        }
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-12
+<body class="container">
+    <h1 class="display-4 mb-4">{{.Title}}</h1>
+    {{ if .Flg }}
+    <p>{{.Message}}</p>
+    {{ else }}
+    <p>{{.JMessage}}</p>
+    {{ end }}
+</body>
+
+
+
+---------------------------------
+
+
+
+▼リスト6-13
+var flg bool = true
+
+// hello handler.
+func hello(w http.ResponseWriter, rq *http.Request,
+        tmp *template.Template) {
+
+        item := struct {
+                Flg      bool
+                Title    string
+                Message  string
+                JMessage string
+        }{
+                Flg:      flg,
+                Title:    "Send values",
+                Message:  "This is Sample message.",
+                JMessage: "これはサンプルです。",
+        }
+
+        er := tmp.Execute(w, item)
+        if er != nil {
+                log.Fatal(er)
+        }
+        flg = !flg
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-14
+<body class="container">
+    <h1 class="display-4 mb-4">{{.Title}}</h1>
+    <ul class="list-group">
+    {{ range $index, $element := .Items }}
+    <li class="list-group-item">{{$index}}: {{$element}}</li>
+    {{ end }}
+    </ul>
+</body>
+
+
+
+---------------------------------
+
+
+
+▼リスト6-15
+func hello(w http.ResponseWriter, rq *http.Request,
+        tmp *template.Template) {
+
+        item := struct {
+                Title    string
+                Items    []string
+                JMessage string
+        }{
+                Title: "Send values",
+                Items: []string{"One", "Two", "Three"},
+        }
+
+        er := tmp.Execute(w, item)
+        if er != nil {
+                log.Fatal(er)
+        }
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-16
+<body class="container">
+    <h1 class="display-4 mb-4">{{.Title}}</h1>
+    {{ with .Message }}
+    <p>OK, message is here!</p>
+    {{ else }}
+    <p>no message...</p>
+    {{ end }}
+</body>
+
+
+
+---------------------------------
+
+
+
+▼リスト6-17
+func hello(w http.ResponseWriter, rq *http.Request,
+        tmp *template.Template) {
+
+        item := struct {
+                Title   string
+                Message string
+        }{
+                Title:   "Send values",
+                // Message: "YES! this is message!!", //☆
+        }
+
+        er := tmp.Execute(w, item)
+        if er != nil {
+                log.Fatal(er)
+        }
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-18
+<body class="container">
+    <h1 class="display-4 mb-4">{{.Title}}</h1>
+    <p>{{ .Message }}</p>
+</body>
+
+
+
+---------------------------------
+
+
+
+▼リスト6-19
+func hello(w http.ResponseWriter, rq *http.Request,
+        tmp *template.Template) {
+
+        id := rq.FormValue("id")
+        nm := rq.FormValue("name")
+        msg := "id: " + id + ", Name: " + nm
+
+        item := struct {
+                Title   string
+                Message string
+        }{
+                Title:   "Send values",
+                Message: msg,
+        }
+
+        er := tmp.Execute(w, item)
+        if er != nil {
+                log.Fatal(er)
+        }
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-20
+<body class="container">
+    <h1 class="display-4 mb-4">{{.Title}}</h1>
+    <p>{{ .Message }}</p>
+    <form action="/hello" method="post">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" 
+                id="name" name="name">
+          </div>
+          <div class="form-group">
+            <label for="pass">Password</label>
+            <input type="password" class="form-control" 
+                id="pass" name="pass">
+          </div>
+          <button type="submit" class="btn btn-primary">
+              Click</button>
+    </form>
+</body>
+
+
+
+---------------------------------
+
+
+
+▼リスト6-21
+func hello(w http.ResponseWriter, rq *http.Request,
+        tmp *template.Template) {
+        msg := "type name and password:"
+
+        if rq.Method == "POST" {
+                nm := rq.PostFormValue("name")
+                pw := rq.PostFormValue("pass")
+                msg = "name: " + nm + ", passowrd: " + pw
+        }
+
+        item := struct {
+                Title   string
+                Message string
+        }{
+                Title:   "Send values",
+                Message: msg,
+        }
+
+        er := tmp.Execute(w, item)
+        if er != nil {
+                log.Fatal(er)
+        }
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-22
+// importに"github.com/gorilla/sessions"を追加
+
+var cs *sessions.CookieStore = sessions.NewCookieStore([]byte("secret-key-12345"))
+
+// hello handler.
+func hello(w http.ResponseWriter, rq *http.Request,
+        tmp *template.Template) {
+        msg := "login name & password:"
+
+        ses, _ := cs.Get(rq, "hello-session")
+
+        if rq.Method == "POST" {
+                ses.Values["login"] = nil
+                ses.Values["name"] = nil
+                nm := rq.PostFormValue("name")
+                pw := rq.PostFormValue("pass")
+                if nm == pw {
+                        ses.Values["login"] = true
+                        ses.Values["name"] = nm
+                }
+                ses.Save(rq, w)
+        }
+
+        flg, _ := ses.Values["login"].(bool)
+        lname, _ := ses.Values["name"].(string)
+        if flg {
+                msg = "logined: " + lname
+        }
+
+        item := struct {
+                Title   string
+                Message string
+        }{
+                Title:   "Session",
+                Message: msg,
+        }
+
+        er := tmp.Execute(w, item)
+        if er != nil {
+                log.Fatal(er)
+        }
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-23――head.html
+{{define "header"}}
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>{{.Title}}</title>
+    <link rel="stylesheet" 
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+    crossorigin="anonymous">
+</head>
+<body class="container">
+<h1 class="display-4 mb-4 text-primary">
+    {{.Title}}</h1>
+{{ end }}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-24――foot.html
+{{define "footer"}}
+<p class="fixed-bottom text-center">
+    copyright 2020 SYODA-Tuyano.</p>
+</body>
+</html>
+{{ end }}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-25――index.html
+{{ template "header" .}}
+<p>{{ .Message }}</p>
+{{ template "footer" .}}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-26――hello.html
+{{ template "header" .}}
+<ul class="list-group">
+    {{ range $n,$itm := .Data}}
+    <li class="list-group-item">{{ $itm }}</li>
+    {{ end }}
+</ul>
+{{ template "footer" .}}
+
+
+
+---------------------------------
+
+
+TODO
+▼リスト6-27
+package main
+
+import (
+        "log"
+        "net/http"
+        "text/template"
+
+        "github.com/gorilla/sessions"
+)
+
+// session variable. (not used)
+var cs *sessions.CookieStore = sessions.NewCookieStore([]byte("secret-key-1234"))
+
+// Template for no-template.
+func notemp() *template.Template {
+        src := "<html><body><h1>NO TEMPLATE.</h1></body></html>"
+        tmp, _ := template.New("index").Parse(src)
+        return tmp
+}
+
+// get target Temlate.
+func page(fname string) *template.Template {
+        tmps, _ := template.ParseFiles("templates/"+fname+".html",
+                "templates/head.html", "templates/foot.html")
+        return tmps
+}
+
+// index handler.
+func index(w http.ResponseWriter, rq *http.Request) {
+        item := struct {
+                Template string
+                Title    string
+                Message  string
+        }{
+                Template: "index",
+                Title:    "Index",
+                Message:  "This is Top page.",
+        }
+        er := page("index").Execute(w, item)
+        if er != nil {
+                log.Fatal(er)
+        }
+}
+
+// hello handler.
+func hello(w http.ResponseWriter, rq *http.Request) {
+        data := []string{
+                "One", "Two", "Three",
+        }
+
+        item := struct {
+                Title string
+                Data  []string
+        }{
+                Title: "Hello",
+                Data:  data,
+        }
+
+        er := page("hello").Execute(w, item)
+        if er != nil {
+                log.Fatal(er)
+        }
+}
+
+// main program.
+func main() {
+        // index handling.
+        http.HandleFunc("/", func(w http.ResponseWriter, rq *http.Request) {
+                index(w, rq)
+        })
+        // hello handling
+        http.HandleFunc("/hello", func(w http.ResponseWriter, rq *http.Request) {
+                hello(w, rq)
+        })
+
+        http.ListenAndServe("", nil)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-28
+package my
+
+import (
+        "github.com/jinzhu/gorm"
+)
+
+// User model.
+type User struct {
+        gorm.Model
+        Account  string
+        Name     string
+        Password string
+        Message  string
+}
+
+// Post model.
+type Post struct {
+        gorm.Model
+        Address string
+        Message string
+        UserId  int
+        GroupId int
+}
+
+// Group model.
+type Group struct {
+        gorm.Model
+        UserId  int
+        Name    string
+        Message string
+}
+
+// Comment model.
+type Comment struct {
+        gorm.Model
+        UserId  int
+        PostId  int
+        Message string
+}
+
+// CommentJoin join model.
+type CommentJoin struct {
+        Comment
+        User
+        Post
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-29
+package my
+
+import (
+        "fmt"
+
+        "github.com/jinzhu/gorm"
+        _ "github.com/jinzhu/gorm/dialects/sqlite"
+)
+
+// Migrate program.
+func Migrate() {
+        db, er := gorm.Open("sqlite3", "data.sqlite3")
+        if er != nil {
+                fmt.Println(er)
+                return
+        }
+        defer db.Close()
+
+        db.AutoMigrate(&User{}, &Group{}, &Post{}, &Comment{})
+
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-30
+package main
+
+import (
+        "./my"
+
+        _ "github.com/jinzhu/gorm/dialects/sqlite"
+)
+
+// main program.
+func main() {
+        my.Migrate()
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-31――usersテーブル
+CREATE TABLE "users" (
+        "id"        integer PRIMARY KEY AUTOINCREMENT,
+        "created_at"        datetime,
+        "updated_at"        datetime,
+        "deleted_at"        datetime,
+        "account"        varchar(255),
+        "name"        varchar(255),
+        "password"        varchar(255),
+        "message"        varchar(255)
+);
+
+
+
+---------------------------------
+
+
+
+▼リスト6-32――postsテーブル
+CREATE TABLE "posts" (
+        "id"        integer PRIMARY KEY AUTOINCREMENT,
+        "created_at"        datetime,
+        "updated_at"        datetime,
+        "deleted_at"        datetime,
+        "address"        varchar(255),
+        "message"        varchar(255),
+        "user_id"        integer,
+        "group_id"        integer
+);
+
+
+
+---------------------------------
+
+
+
+▼リスト6-33――groupsテーブル
+CREATE TABLE "groups" (
+        "id"        integer PRIMARY KEY AUTOINCREMENT,
+        "created_at"        datetime,
+        "updated_at"        datetime,
+        "deleted_at"        datetime,
+        "user_id"        integer,
+        "name"        varchar(255),
+        "message"        varchar(255)
+);
+
+
+
+---------------------------------
+
+
+
+▼リスト6-34――commentsテーブル
+CREATE TABLE "comments" (
+        "id"        integer PRIMARY KEY AUTOINCREMENT,
+        "created_at"        datetime,
+        "updated_at"        datetime,
+        "deleted_at"        datetime,
+        "user_id"        integer,
+        "post_id"        integer,
+        "message"        varchar(255)
+);
+
+
+
+---------------------------------
+
+
+
+▼リスト6-35
+insert into "users" values(1,null,null,null,'taro@yamada.jp','taro','yamada','taro''s account.');
+insert into "users" values(2,null,null,null,'hanako@flower.com','hanako','flower','hanako''s account.');
+
+
+
+---------------------------------
+
+
+
+▼リスト6-36
+package main
+
+import (
+        "log"
+        "net/http"
+        "strconv"
+        "strings"
+        "text/template"
+
+        "./my"
+        "github.com/gorilla/sessions"
+
+        "github.com/jinzhu/gorm"
+        _ "github.com/jinzhu/gorm/dialects/sqlite"
+)
+
+// db variable.
+var dbDriver = "sqlite3"
+var dbName = "data.sqlite3"
+
+// session variable.
+var sesName = "ytboard-session"
+var cs = sessions.NewCookieStore([]byte("secret-key-1234"))
+
+// login check.
+func checkLogin(w http.ResponseWriter, rq *http.Request) *my.User {
+        ses, _ := cs.Get(rq, sesName)
+        if ses.Values["login"] == nil || !ses.Values["login"].(bool) {
+                http.Redirect(w, rq, "/login", 302)
+        }
+        ac := ""
+        if ses.Values["account"] != nil {
+                ac = ses.Values["account"].(string)
+        }
+
+        var user my.User
+        db, _ := gorm.Open(dbDriver, dbName)
+        defer db.Close()
+
+        db.Where("account = ?", ac).First(&user)
+
+        return &user
+}
+
+// Template for no-template.
+func notemp() *template.Template {
+        tmp, _ := template.New("index").Parse("NO PAGE.")
+        return tmp
+}
+
+// get target Temlate.
+func page(fname string) *template.Template {
+        tmps, _ := template.ParseFiles("templates/"+fname+".html",
+                "templates/head.html", "templates/foot.html")
+        return tmps
+}
+
+// top page handler.
+func index(w http.ResponseWriter, rq *http.Request) {
+        user := checkLogin(w, rq)
+
+        db, _ := gorm.Open(dbDriver, dbName)
+        defer db.Close()
+
+        var pl []my.Post
+        db.Where("group_id > 0").Order("created_at desc").Limit(10).Find(&pl)
+        var gl []my.Group
+        db.Order("created_at desc").Limit(10).Find(&gl)
+
+        item := struct {
+                Title   string
+                Message string
+                Name    string
+                Account string
+                Plist   []my.Post
+                Glist   []my.Group
+        }{
+                Title:   "Index",
+                Message: "This is Top page.",
+                Name:    user.Name,
+                Account: user.Account,
+                Plist:   pl,
+                Glist:   gl,
+        }
+        er := page("index").Execute(w, item)
+        if er != nil {
+                log.Fatal(er)
+        }
+}
+
+// top page handler.
+func post(w http.ResponseWriter, rq *http.Request) {
+        user := checkLogin(w, rq)
+
+        pid := rq.FormValue("pid")
+        db, _ := gorm.Open(dbDriver, dbName)
+        defer db.Close()
+
+        if rq.Method == "POST" {
+                msg := rq.PostFormValue("message")
+                pId, _ := strconv.Atoi(pid)
+                cmt := my.Comment{
+                        UserId:  int(user.Model.ID),
+                        PostId:  pId,
+                        Message: msg,
+                }
+                db.Create(&cmt)
+        }
+
+        var pst my.Post
+        var cmts []my.CommentJoin
+
+        db.Where("id = ?", pid).First(&pst)
+        db.Table("comments").Select("comments.*, users.id, users.name").Joins("join users on users.id =comments.user_id").Where("comments.post_id = ?", pid).Order("created_at desc").Find(&cmts)
+
+        item := struct {
+                Title   string
+                Message string
+                Name    string
+                Account string
+                Post    my.Post
+                Clist   []my.CommentJoin
+        }{
+                Title:   "Post",
+                Message: "Post id=" + pid,
+                Name:    user.Name,
+                Account: user.Account,
+                Post:    pst,
+                Clist:   cmts,
+        }
+        er := page("post").Execute(w, item)
+        if er != nil {
+                log.Fatal(er)
+        }
+}
+
+// home handler
+func home(w http.ResponseWriter, rq *http.Request) {
+        user := checkLogin(w, rq)
+
+        db, _ := gorm.Open(dbDriver, dbName)
+        defer db.Close()
+
+        if rq.Method == "POST" {
+                switch rq.PostFormValue("form") {
+                case "post":
+                        ad := rq.PostFormValue("address")
+                        ad = strings.TrimSpace(ad)
+                        if strings.HasPrefix(ad, "https://youtu.be/") {
+                                ad = strings.TrimPrefix(ad, "https://youtu.be/")
+                        }
+
+                        pt := my.Post{
+                                UserId:  int(user.Model.ID),
+                                Address: ad,
+                                Message: rq.PostFormValue("message"),
+                        }
+                        db.Create(&pt)
+                case "group":
+                        gp := my.Group{
+                                UserId:  int(user.Model.ID),
+                                Name:    rq.PostFormValue("name"),
+                                Message: rq.PostFormValue("message"),
+                        }
+                        db.Create(&gp)
+                }
+        }
+
+        var pts []my.Post
+        var gps []my.Group
+
+        db.Where("user_id=?", user.ID).Order("created_at desc").Limit(10).Find(&pts)
+        db.Where("user_id=?", user.ID).Order("created_at desc").Limit(10).Find(&gps)
+
+        itm := struct {
+                Title   string
+                Message string
+                Name    string
+                Account string
+                Plist   []my.Post
+                Glist   []my.Group
+        }{
+                Title:   "Home",
+                Message: "User account=\"" + user.Account + "\".",
+                Name:    user.Name,
+                Account: user.Account,
+                Plist:   pts,
+                Glist:   gps,
+        }
+        er := page("home").Execute(w, itm)
+        if er != nil {
+                log.Fatal(er)
+        }
+}
+
+// group handler.
+func group(w http.ResponseWriter, rq *http.Request) {
+        user := checkLogin(w, rq)
+
+        gid := rq.FormValue("gid")
+        db, _ := gorm.Open(dbDriver, dbName)
+        defer db.Close()
+
+        if rq.Method == "POST" {
+                ad := rq.PostFormValue("address")
+                ad = strings.TrimSpace(ad)
+                if strings.HasPrefix(ad, "https://youtu.be/") {
+                        ad = strings.TrimPrefix(ad, "https://youtu.be/")
+                }
+                gId, _ := strconv.Atoi(gid)
+                pt := my.Post{
+                        UserId:  int(user.Model.ID),
+                        Address: ad,
+                        Message: rq.PostFormValue("message"),
+                        GroupId: gId,
+                }
+                db.Create(&pt)
+        }
+
+        var grp my.Group
+        var pts []my.Post
+
+        db.Where("id=?", gid).First(&grp)
+        db.Order("created_at desc").Model(&grp).Related(&pts)
+
+        itm := struct {
+                Title   string
+                Message string
+                Name    string
+                Account string
+                Group   my.Group
+                Plist   []my.Post
+        }{
+                Title:   "Group",
+                Message: "Group id=" + gid,
+                Name:    user.Name,
+                Account: user.Account,
+                Group:   grp,
+                Plist:   pts,
+        }
+        er := page("group").Execute(w, itm)
+        if er != nil {
+                log.Fatal(er)
+        }
+}
+
+// login handler.
+func login(w http.ResponseWriter, rq *http.Request) {
+        item := struct {
+                Title   string
+                Message string
+                Account string
+        }{
+                Title:   "Login",
+                Message: "type your account & password:",
+                Account: "",
+        }
+
+        if rq.Method == "GET" {
+                er := page("login").Execute(w, item)
+                if er != nil {
+                        log.Fatal(er)
+                }
+                return
+        }
+        if rq.Method == "POST" {
+                db, _ := gorm.Open(dbDriver, dbName)
+                defer db.Close()
+
+                usr := rq.PostFormValue("account")
+                pass := rq.PostFormValue("pass")
+                item.Account = usr
+
+                // check account and password
+                var re int
+                var user my.User
+
+                db.Where("account = ? and password = ?", usr, pass).Find(&user).Count(&re)
+
+                if re <= 0 {
+                        item.Message = "Wrong account or password."
+                        page("login").Execute(w, item)
+                        return
+                }
+
+                // logined.
+                ses, _ := cs.Get(rq, sesName)
+                ses.Values["login"] = true
+                ses.Values["account"] = usr
+                ses.Values["name"] = user.Name
+                ses.Save(rq, w)
+                http.Redirect(w, rq, "/", 302)
+        }
+
+        er := page("login").Execute(w, item)
+        if er != nil {
+                log.Fatal(er)
+        }
+}
+
+// logout handler.
+func logout(w http.ResponseWriter, rq *http.Request) {
+        ses, _ := cs.Get(rq, sesName)
+        ses.Values["login"] = nil
+        ses.Values["account"] = nil
+        ses.Save(rq, w)
+        http.Redirect(w, rq, "/login", 302)
+}
+
+// main program.
+func main() {
+        // index handling.
+        http.HandleFunc("/", func(w http.ResponseWriter, rq *http.Request) {
+                index(w, rq)
+        })
+        // home handling.
+        http.HandleFunc("/home", func(w http.ResponseWriter, rq *http.Request) {
+                home(w, rq)
+        })
+        // post handling.
+        http.HandleFunc("/post", func(w http.ResponseWriter, rq *http.Request) {
+                post(w, rq)
+        })
+        // post handling.
+        http.HandleFunc("/group", func(w http.ResponseWriter, rq *http.Request) {
+                group(w, rq)
+        })
+
+        // login handling.
+        http.HandleFunc("/login", func(w http.ResponseWriter, rq *http.Request) {
+                login(w, rq)
+        })
+        // logout handling.
+        http.HandleFunc("/logout", func(w http.ResponseWriter, rq *http.Request) {
+                logout(w, rq)
+        })
+
+        http.ListenAndServe("", nil)
+}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-37――head.html
+{{define "header"}}
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>{{.Title}}</title>
+    <link rel="stylesheet" 
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+    crossorigin="anonymous">
+    <script>
+    function logout(){
+        if (window.confirm("ログアウトしますか？")){
+            window.location = "/logout";
+        }
+    }
+    </script>
+</head>
+<body class="bg-light">
+<div class="container bg-white p-0">
+<nav class="navbar-expand-sm navbar navbar-dark p-1 bg-primary justify-content-between">
+    <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Top</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="/home">Home</a>
+          </li>
+    </ul>
+    <a href="#" onclick="javascript:logout();">
+    <span class="navbar-text text-light">
+        {{.Account}}
+    </span></a>
+</nav>
+<div class="p-3">
+<h1 class="display-4 mb-4 text-primary">
+{{.Title}}</h1>
+{{ end }}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-38――foot.html
+{{define "footer"}}
+<p class="mt-5 mb-1 text-center">
+    copyright 2020 SYODA-Tuyano.</p>
+</div></div>
+</body>
+</html>
+{{ end }}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-39――index.html
+{{ template "header" .}}
+<p>{{ .Message }}</p>
+
+<h4 class="mt-4">Post list.</h4>
+{{range $n,$Itm := .Plist}}
+<div class="media border m-1 p-2">
+    <a href="/post?pid={{$Itm.Model.ID}}">
+        <img class="mr-3" src="https://img.youtube.com/vi/{{$Itm.Address}}/default.jpg" alt="Generic placeholder image">
+    </a>
+    <div class="media-body">
+        <h5 class="mt-0">{{$Itm.Address}}</h5>
+        {{$Itm.Message}}
+    </div>
+</div>
+{{end}}
+
+<h4 class="mt-4">Group list.</h4>
+{{range $n,$Itm := .Glist}}
+<div class="media border m-1 p-2">
+    <div class="media-body">
+        <a href="/group?gid={{$Itm.ID}}"><h5 class="mt-0">{{$Itm.Name}}</h5></a>
+        {{$Itm.Message}}
+    </div>
+</div>
+{{end}}
+
+{{ template "footer" .}}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-40――home.html
+{{ template "header" .}}
+<p>{{ .Message }}</p>
+
+<h4 class="mt-5">Post.</h4>
+<form method="post" action="/home">
+<input type="hidden" name="form" value="post">
+<div class="form-group mt-4">
+    <label for="address" class="h6">Youtube share address:</label>
+    <input type="text" class="form-control" 
+    id="address" name="address" placeholder="https://youtu.be/xxxxx">
+</div>
+<div class="form-group mt-4">
+    <label for="message" class="h6">Message:</label>
+    <input type="text" class="form-control" id="message" name="message">
+</div>
+<button type="submit" class="btn btn-primary mb-2">Post group.</button>
+</form>
+
+<h5 class="mt-3">Post list.</h5>
+{{range $n,$Itm := .Plist}}
+<div class="media border m-1 p-2">
+    <a href="/post?pid={{$Itm.Model.ID}}">
+        <img class="mr-3" src="https://img.youtube.com/vi/{{$Itm.Address}}/default.jpg" alt="Generic placeholder image">
+    </a>
+    <div class="media-body">
+        <h5 class="mt-0">{{$Itm.Address}}</h5>
+        {{$Itm.Message}}
+    </div>
+</div>
+{{end}}
+
+<h4 class="mt-5">Group list.</h4>
+<form method="post" action="/home">
+<input type="hidden" name="form" value="group">
+<div class="form-group mt-4">
+    <label for="name2" class="h6">New Group:</label>
+    <input type="text" class="form-control" id="name2" name="name">
+</div>
+<div class="form-group mt-4">
+    <label for="message" class="h6">Message:</label>
+    <input type="text" class="form-control" id="message" name="message">
+</div>
+<button type="submit" class="btn btn-primary mb-2">Post group.</button>
+</form>
+
+<h5 class="mt-3">Group list.</h5>
+{{range $n,$Itm := .Glist}}
+<div class="media border m-1 p-2">
+    <div class="media-body">
+        <a href="/group?gid={{$Itm.ID}}"><h5 class="mt-0">{{$Itm.Name}}</h5></a>
+        {{$Itm.Message}}
+    </div>
+</div>
+{{end}}
+
+{{ template "footer" .}}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-41――post.html
+{{ template "header" .}}
+<p>{{ .Message }}</p>
+
+<h4 class="mt-4">Post movie.</h4>
+
+<div class="card m-1 p-2 text-center">
+    <div>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{.Post.Address}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+    <div class="card-body">
+        <h5 class="mt-0">{{.Post.Message}}</h5>
+    </div>
+</div>
+
+<form method="post" action="/post?pid={{.Post.ID}}">
+    <div class="form-group mt-4">
+    <label for="message" class="h6">New Comment:</label>
+    <textarea class="form-control" id="message" name="message"></textarea>
+</div>
+<button type="submit" class="btn btn-primary mb-2">Post comment.</button>
+</form>
+<h4 class="mt-4">Comments.</h4>
+{{range $n,$Itm := .Clist}}
+<div class="media border m-1 p-2">
+    <div class="media-body">
+        <h6 class="mt-0">{{$Itm.Comment.Message}} ({{$Itm.Name}})</h6>
+    </div>
+</div>
+{{end}}
+
+{{ template "footer" .}}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-42――group.html
+{{ template "header" .}}
+<p>{{ .Message }}</p>
+
+<h4 class="mt-4">"{{.Group.Name}}" group.</h4>
+
+<form method="post" action="/group?gid={{.Group.Model.ID}}">
+    <div class="form-group mt-4">
+        <label for="address" class="h6">Youtube share address:</label>
+        <input type="text" class="form-control" 
+        id="address" name="address" placeholder="https://youtu.be/xxxxx">
+    </div>
+    <div class="form-group mt-4">
+        <label for="message" class="h6">Message:</label>
+        <input type="text" class="form-control" id="message" name="message">
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Post group.</button>
+</form>
+
+{{range $n,$Itm := .Plist}}
+<div class="media border m-1 p-2">
+    <a href="/post?pid={{$Itm.Model.ID}}">
+        <img class="mr-3" src="https://img.youtube.com/vi/{{$Itm.Address}}/1.jpg" alt="Generic placeholder image">
+    </a>
+    <div class="media-body">
+        <h5 class="mt-0">{{$Itm.Address}}</h5>
+        {{$Itm.Message}}
+    </div>
+</div>
+{{end}}
+
+{{ template "footer" .}}
+
+
+
+---------------------------------
+
+
+
+▼リスト6-43――login.html
+{{ template "header" .}}
+<h4>{{ .Message }}</h4>
+<form action="/login" method="post">
+    <div class="form-group">
+        <label for="Account">Account(mail address)</label>
+        <input type="mail" class="form-control" 
+            id="account" name="account">
+      </div>
+      <div class="form-group">
+        <label for="pass">Password</label>
+        <input type="password" class="form-control" 
+            id="pass" name="pass">
+      </div>
+      <button type="submit" class="btn btn-primary">
+          Click</button>
+</form>
+{{ template "footer" .}}
+
+
+
