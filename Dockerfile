@@ -14,7 +14,7 @@ WORKDIR /go/src/study
 # ホストのファイルをコンテナの作業ディレクトリに移行
 ADD . /go/src/study
 
-RUN go mod init
+# RUN go mod init
 RUN apt-get update
 RUN go get github.com/uudashr/gopkgs/v2/cmd/gopkgs
 RUN go get github.com/ramya-rao-a/go-outline
